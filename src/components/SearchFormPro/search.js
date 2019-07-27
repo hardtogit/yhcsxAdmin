@@ -60,4 +60,4 @@ class SearchFormHook extends React.Component {
     return this.compiler.run();
   }
 }
-export {SearchFormHook}
+export {SearchFormHook};

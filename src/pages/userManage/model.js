@@ -25,10 +25,9 @@ export default model.extend( {
   },
 
   effects: {
-    * fetchList({payload}, {put, update, call,select}) {
+    * fetchList({payload}, {update, call,select}) {
       const pageModel = yield select(({ auditManage }) => auditManage.audits.pagination);
       const listData = yield call(withLoading(Fetch, 'users'),{...payload,totalpage:pageModel.totalpage,presentpage:pageModel.current-1,amount:pageModel.total});
-      console.log(listData,'ssssssssssssssssssss');
       yield update({ audits: { list: listData.list, pagination: { ...pageModel, total: listData.tc } } });
     }
   },

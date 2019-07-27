@@ -17,7 +17,7 @@ const itemLayout = {
   },
   wrapperCol: {
     span: 15
-  },
+  }
 };
 /**
  * 表单构建器
@@ -83,7 +83,7 @@ export class Compiler {
     // let visDom;
     if (elements.length) {
       this.formEles = (<Row>
-        { elements.map(({ ele, field }) => {
+        {elements.map(({ ele, field }) => {
           const collayout = { ...itemLayout.itemCol, ...field.ColLayout };
           return (<Col {...collayout} key={field.key}>
             <FormItem label={field.name} {...itemLayout}>

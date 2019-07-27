@@ -273,6 +273,27 @@ function enhanceReducers(reducers, { initialState, namespace, initialLocalState 
      * 如果传入keys, 则重置指定keys以及状态类(confirm,spinning等)state
      * 如果既未设置force，也未设置keys, 则根据localStorage中RESET_PART_STATE的值来决定部分重置还是全量重置
      */
+    // 如果不传入key,则更新最外层的pagination
+
+    goPage(state, {payload}){
+    const {key,current}=payload
+    if(!key){
+      return {
+        ...state,
+        pagination:{...state.pagination,  current: payload}
+      };
+    }
+    return {
+      ...state,
+      [key]:{
+        ...state[key],
+        pagination:{
+          ...state[key].pagination,
+          current:current
+        }
+      }
+    };
+  },
     resetState(state, { payload = {} }) {
       let { force, keys } = payload;
       let nextState = { ...initialState };

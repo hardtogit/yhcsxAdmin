@@ -5,11 +5,11 @@
  */
 export function submitAndResetPugin(compiler) {
   compiler.hooks.make.tap('submitAndResetPugin', (elements, btns) => {
-    // btns.unshift({
-    //   source: 'Reset',
-    //   title: '重置',
-    //   type: 'default'
-    // });
+    btns.unshift({
+      source: 'Reset',
+      title: '重置',
+      type: 'default'
+    });
     btns.unshift({
       source: 'Submit',
       title: '查询',

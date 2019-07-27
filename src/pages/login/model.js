@@ -2,7 +2,7 @@ import model from '@/utils/baseModel';
 import {Modal} from 'antd';
 import {routerRedux} from 'dva/router';
 import {withLoading} from '@/utils/dva';
-import  { login} from './server';
+import  Fetch from '@/utils/baseSever';
 export default model.extend( {
   namespace:'login',
   state: {
@@ -13,8 +13,8 @@ export default model.extend( {
   subscriptions: {
   },
   effects: {
-    * login({payload}, {put, update, call,select}) {
-      const response = yield call(withLoading(login, 'login',),payload);
+    * login({payload}, {put, call}) {
+      const response = yield call(withLoading(Fetch, 'login',),payload);
       if (response.ustr != null && response.ustr !== '' && response.uerr !== 'ERR_CONNECTION_EXCEPTION'){
         Modal.warning({title:response.ustr});
       }else{

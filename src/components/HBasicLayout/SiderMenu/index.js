@@ -14,27 +14,27 @@ export default class SiderMenu extends PureComponent {
 
     const siderCls = classNames('basic-layout-sider', {
       'basic-layout-sider-light': theme === 'light',
-      'basic-layout-sider-fixSiderbar': fixSiderbar,
+      'basic-layout-sider-fixSiderbar': fixSiderbar
     });
 
     return (
       <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        breakpoint="lg"
-        onCollapse={onCollapse}
-        width={256}
-        theme={theme}
-        className={siderCls}
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          breakpoint="lg"
+          onCollapse={onCollapse}
+          width={256}
+          theme={theme}
+          className={siderCls}
       >
         <Logo {...this.props} styles={{}} />
         <BaseMenu
-          {...this.props}
-          mode="inline"
-          handleOpenChange={this.handleOpenChange}
-          onOpenChange={this.handleOpenChange}
-          style={{ padding: '16px 0', width: '100%' }}
+            {...this.props}
+            mode="inline"
+            handleOpenChange={this.handleOpenChange}
+            onOpenChange={this.handleOpenChange}
+            style={{ padding: '16px 0', width: '100%' }}
         />
       </Sider>
     );

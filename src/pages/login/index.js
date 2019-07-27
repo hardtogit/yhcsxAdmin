@@ -11,7 +11,7 @@ class Index extends React.Component{
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-          this.props.login(values);
+          this.props.login({...values,xtype:'admin',level:'admin'});
       }
     });
   };

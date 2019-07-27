@@ -57,7 +57,7 @@ export default class BaseMenu extends React.Component {
       const { selectedKeys, openKeys } = getRelativedKeysByRoutes(nextProps);
       this.setState({
         selectedKeys,
-        openKeys,
+        openKeys
       });
     }
   }
@@ -113,14 +113,14 @@ export default class BaseMenu extends React.Component {
       <React.Fragment>
         {renderNav ? renderNav({ collapsed, setting, selectedKeys, ...defaultProps }) : (
           <Menu
-            key="Menu"
-            mode={mode}
-            theme={theme}
-            selectedKeys={selectedKeys}
-            onOpenChange={(keys) => { this.handleKeysChange({ openKeys: keys }); }}
-            onClick={this.handleClick}
-            style={style}
-            {...defaultProps}
+              key="Menu"
+              mode={mode}
+              theme={theme}
+              selectedKeys={selectedKeys}
+              onOpenChange={(keys) => { this.handleKeysChange({ openKeys: keys }); }}
+              onClick={this.handleClick}
+              style={style}
+              {...defaultProps}
           >
             {this.renderDeepMenus(menus)}
           </Menu>

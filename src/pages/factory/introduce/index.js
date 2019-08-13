@@ -89,7 +89,7 @@ class Index extends Component {
               ]
 
             })(
-              <UploadImg/>
+              <UploadImg imgCropProps={{width:390,height:280,modalWidth:800,useRatio:true}}/>
             )
           }
         </FormItem>
@@ -107,7 +107,7 @@ class Index extends Component {
               ]
 
             })(
-              <UploadImg/>
+              <UploadImg imgCropProps={{width:390,height:280,modalWidth:800,useRatio:true}}/>
             )
           }
         </FormItem>

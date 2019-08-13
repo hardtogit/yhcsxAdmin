@@ -8,7 +8,7 @@ class Index extends Component {
     uploadProps:{
       name:'local_file',
       listType:'picture-card',
-      accept:'image/jpg,image/jpeg,image/png',
+        accept:'image/jpg,image/jpeg,image/png',
       multiple:false,
       showUploadList:false,
       action:'http://47.92.169.34/cgi-bin/upload.pl',

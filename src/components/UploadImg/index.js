@@ -63,7 +63,7 @@ class Index extends Component {
         <Upload {...uploadProps}
             onChange={this.handleChange}
         >
-          {fid? <img src={`http://47.92.169.34/cgi-bin/download.pl?fid=${fid}&proj=demo8`} alt=""/>:uploadBtn}
+          {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={`http://47.92.169.34/cgi-bin/download.pl?fid=${fid}&proj=demo8`} alt=""/>:uploadBtn}
         </Upload>
         </ImgCrop>
 

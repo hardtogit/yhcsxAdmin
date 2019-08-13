@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {model} from '@/utils/portal';
-import {Table,Button} from 'antd';
+import {Table,Divider,message,Modal} from 'antd';
 import ListPage from '@/components/Page/listPage';
 import {tableFields,searchFields} from './fields';
 import  {SearchFormHook} from '@/components/SearchFormPro/search';
 import TableUtils from '@/utils/table';
+import Fetch from '@/utils/baseSever';
 import AddModal from './components/addModel';
 
 
@@ -14,7 +15,9 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state={
-      visible:false
+      visible:false,
+      entity:{},
+      type:'add'
     };
     this.searchParams={};
   }
@@ -25,24 +28,42 @@ class Index extends Component {
       width: 200,
       render: (text, record) => (
          <>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-           </>
+          <a  onClick={()=>{
+            this.setState({
+              visible:true,
+              entity:record,
+              type:'edit'
+            });
+          }}
+          >修改</a>
+           <Divider type="vertical" />
+          <a  onClick={()=>
+            Modal.confirm({
+              title:'系统提示',
+              content:'确认删除？',
+              onOk:()=>{
+                Fetch({obj:'admin',act:'homepartnerdel',id:record['_id']}).then(()=>{
+                  this.props.fetchList({...this.searchParams,obj:'admin',act:'homepartnerlist'});
+                });
+              }
+            })
+          }
+          >删除</a>
+      </>
       )
     }];
     return createColumns(fields).enhance(extraFields).values();
   }
   handleSearch=(values)=>{
     const {fetchList,goPage}=this.props;
-    goPage('banners',1);
+    goPage('partners',1);
     this.searchParams=values;
-    fetchList(values);
+    fetchList({...values,obj:'admin',act:'homepartnerlist'});
 
   }
   render() {
-    const {visible}=this.state;
-    const {push,partners,loading,fetchList,goPage}=this.props;
+    const {visible,entity}=this.state;
+    const {partners,loading,fetchList,goPage}=this.props;
     const searchProps={
       fields:searchFields,
       onSearch:this.handleSearch,
@@ -50,7 +71,9 @@ class Index extends Component {
       handler:(source)=>{
         if(source==='add'){
           this.setState({
-            visible:true
+            visible:true,
+            entity:{},
+            type:'add'
           });
         }
     }
@@ -63,13 +86,37 @@ class Index extends Component {
       pagination:partners.pagination,
       onChange({ current }) {
         goPage('partners',current);
-        fetchList(this.searchParams);
+        fetchList({...this.searchParams,obj:'admin',act:'homepartnerlist'});
       }
     };
     const addModalProps={
       onCancel:()=>this.setState({
         visible:false
-      })
+      }),
+      entity,
+      onOk:(params)=> {
+        if (this.state.type === 'add') {
+          Fetch({ obj: 'admin', act: 'homepartneradd', ...params }).then(
+            () => {
+              message.success('操作成功');
+              fetchList({...this.searchParams,obj:'admin',act:'homepartnerlist'});
+              this.setState({
+                visible: false
+              });
+            }
+          );
+        }else{
+          Fetch({ obj: 'admin', act: 'homepartnermodify', ...params,id:this.state.entity['_id'] }).then(
+            () => {
+              message.success('操作成功');
+              fetchList({...this.searchParams,obj:'admin',act:'homepartnerlist'});
+              this.setState({
+                visible: false
+              });
+            }
+          );
+        }
+      }
     };
     return (
       <ListPage

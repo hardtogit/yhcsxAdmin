@@ -25,6 +25,12 @@ export default (params)=>{
         resolve(response);
       }];
     }
-    window.apiconn.send_obj(params);
+    if(window.apiconn.conn_state==='IN_SESSION'){
+      window.apiconn.send_obj(params);
+    }else{
+      setTimeout(()=>{
+        window.apiconn.send_obj(params);
+      },1000);
+    }
   });
 };

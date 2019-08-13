@@ -13,12 +13,12 @@ export default model.extend({
   },
   subscriptions: {
     setupSubscriber({ listen, dispatch }) {
-      listen('/homeBanner', () => {
+      listen('/home/partner', () => {
         setTimeout(() => {
           dispatch({
             type: 'fetchList', payload: {
               obj: 'admin',
-              act: 'authlist'
+              act: 'homepartnerlist'
             }
           });
         }, 0);
@@ -30,13 +30,12 @@ export default model.extend({
   effects: {
     * fetchList({ payload }, { update, call, select }) {
       const pageModel = yield select(({ homePartner }) => homePartner.partners.pagination);
-      const listData = yield call(withLoading(Fetch, 'partners'), {
-        ...payload,
-        totalpage: pageModel.totalpage,
-        presentpage: pageModel.current - 1,
-        amount: pageModel.total
+      const response = yield call(withLoading(Fetch, 'partners'), {
+        page_num: pageModel.current - 1,
+        page_size: pageModel.pageSize,
+        ...payload
       });
-      yield update({ partners: { list: listData.list, pagination: { ...pageModel, total: listData.tc } } });
+      yield update({ partners: { list: response.info, pagination: { ...pageModel, total: response.count } } });
     }
   },
   reducers: {}

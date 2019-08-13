@@ -3,6 +3,6 @@ export const responseStatus={
   'SUCCESS':'SUCCESS'
 };
 export const screenType={
-  'WAP':'手机',
-  'PC':'PC端'
+  'wap':'手机',
+  'pc':'PC端'
 };

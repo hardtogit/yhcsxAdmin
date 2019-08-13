@@ -3,6 +3,8 @@ import UploadImg from '@/components/UploadImg';
 import {screenType} from '@/config/constants';
 import {model} from '@/utils/portal';
 import {Form,Select,Input,Button} from 'antd';
+import Fetch from '@/utils/baseSever';
+import { message } from 'antd/lib/index';
 
 const Option=Select.Option;
 const FormItem=Form.Item;
@@ -28,19 +30,30 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state={
-      loading:false
+      loading:false,
+      entity:{}
     };
+  }
+  componentDidMount(){
+    Fetch({obj:'admin',act:'homeqrread'}).then((response)=>{
+      this.setState({
+        entity:response.info
+      });
+    });
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        Fetch({obj:'admin',act:'homeqrmodify',...values}).then(()=>{
+          message.success('操作成功');
+        });
       }
     });
   };
   render() {
-    const { form:{getFieldDecorator},pop }=this.props;
+    const {entity}=this.state;
+    const { form:{getFieldDecorator}}=this.props;
     return (
         <Form
             {...formItemLayout}
@@ -50,22 +63,20 @@ class Index extends Component {
               label="二维码"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('qr1',{
+                initialValue:entity.qr1,
                 rules:[
                   {required:true,message:'图片必须上传'}
                 ]
 
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:320,height:320,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" style={{marginRight:'15px'}}>
+            <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
               保存
-            </Button>
-            <Button onClick={()=>pop()}>
-              返回
             </Button>
           </Form.Item>
         </Form>

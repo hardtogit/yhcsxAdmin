@@ -31,9 +31,9 @@ class Index extends Component {
     ;
   }
   componentDidMount(){
-    Fetch({obj:'admin',act: 'bannerlist',type:'company',location:'pc' }).then((response)=>{
+    Fetch({obj:'admin',act: 'otherbannerread',type:'factory'}).then((response)=>{
       this.setState({
-        banner:response.info[0]||{}
+        banner:response.info
       });
     });
   }
@@ -41,11 +41,7 @@ class Index extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        Fetch({...values,obj :'admin',act: 'banneradd',type:'company',location:'pc' }).then((response)=>{
-          this.setState({
-            banner:response.info[0]||{}
-          });
-        }).then(()=>{
+        Fetch({...values,obj :'admin',act: 'otherbannermodify',type:'factory'}).then(()=>{
           message.success('设置成功');
         });
       }
@@ -64,7 +60,7 @@ class Index extends Component {
         >
           {
             getFieldDecorator('picture',{
-              initialValue:banner.fid,
+              initialValue:banner.picture,
               rules:[
                 {required:true,message:'图片必须上传'}
               ]

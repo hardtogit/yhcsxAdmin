@@ -15,35 +15,39 @@ const formItemLayout = {
 @Form.create()
 class Index extends Component {
   render() {
-    const { onCancel, form: { getFieldDecorator } } = this.props;
+    const { onCancel, form: { getFieldDecorator },form,onOk,entity } = this.props;
     const modalProps = {
       title: '新增合作伙伴',
       visible: true,
       onCancel,
       onOk: () => {
-
+        form.validateFields((error,values)=>{
+                  if(!error){
+                    onOk(values);
+                  }
+        });
       }
     };
     return (
       <Modal {...modalProps} >
         <Form {...formItemLayout}>
           <Form.Item label="图片">
-            {getFieldDecorator('plan', {
-
+            {getFieldDecorator('picture', {
+              initialValue:entity.fid
             })(
-              <UploadImg />
+              <UploadImg imgCropProps={{width:146,height:80,useRatio:true}}/>
             )}
           </Form.Item>
           <Form.Item label="名称">
-            {getFieldDecorator('name', {
-
+            {getFieldDecorator('title', {
+              initialValue:entity.title
             })(
               <Input/>
             )}
           </Form.Item>
           <Form.Item label="链接">
-            {getFieldDecorator('lianjie', {
-
+            {getFieldDecorator('link', {
+              initialValue:entity.link
             })(
               <Input />
             )}

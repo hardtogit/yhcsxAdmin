@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import UploadImg from '@/components/UploadImg';
 import {model} from '@/utils/portal';
-import {Form,Button} from 'antd';
+import {Form,Button,message} from 'antd';
+import Fetch from '@/utils/baseSever';
 
 const FormItem=Form.Item;
 const formItemLayout = {
@@ -26,19 +27,30 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state={
-      loading:false
+      loading:false,
+      entity:{}
     };
+  }
+  componentDidMount(){
+    Fetch({obj:'admin',act:'cpybannerread'}).then((response)=>{
+      this.setState({
+        entity:response.info
+      });
+    });
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        Fetch({obj:'admin',act:'cpybannermodify',...values}).then(()=>{
+          message.success('操作成功');
+        });
       }
     });
   };
   render() {
-    const { form:{getFieldDecorator},pop }=this.props;
+    const {entity}=this.state;
+    const { form:{getFieldDecorator}}=this.props;
     return (
       <Form
           {...formItemLayout}
@@ -48,22 +60,20 @@ class Index extends Component {
             label="图片"
         >
           {
-            getFieldDecorator('pic',{
+            getFieldDecorator('banner1',{
+              initialValue:entity.banner1,
               rules:[
                 {required:true,message:'图片必须上传'}
               ]
 
             })(
-              <UploadImg/>
+              <UploadImg imgCropProps={{width:1920,height:540,modalWidth:800,useRatio:true}}/>
             )
           }
         </FormItem>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" style={{marginRight:'15px'}}>
+          <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
             保存
-          </Button>
-          <Button onClick={()=>pop()}>
-            返回
           </Button>
         </Form.Item>
       </Form>

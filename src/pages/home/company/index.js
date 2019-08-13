@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UploadImg from '@/components/UploadImg';
-import {model} from '@/utils/portal';
-import {Form,Select,Row,Col,Button} from 'antd';
+import {Form,Select,Row,Col,Button,message} from 'antd';
+import Fetch from '@/utils/baseSever';
 
 const Option=Select.Option;
 const FormItem=Form.Item;
@@ -21,25 +21,35 @@ const tailFormItemLayout = {
     }
   }
 };
-@model('homeBanner')
 @Form.create()
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state={
-      loading:false
+      loading:false,
+      entity:{}
     };
+  }
+  componentDidMount(){
+    Fetch({obj:'admin',act:'homecompanyread'}).then((response)=>{
+      this.setState({
+        entity:response.info
+      });
+    });
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        Fetch({obj:'admin',act:'homecompanymodify',...values}).then(()=>{
+          message.success('操作成功');
+        });
       }
     });
   };
   render() {
-    const { form:{getFieldDecorator},pop }=this.props;
+    const {entity}=this.state;
+    const { form:{getFieldDecorator} }=this.props;
     return (
         <Form
             {...formItemLayout}
@@ -51,13 +61,14 @@ class Index extends Component {
                   label="公司概况"
               >
                 {
-                  getFieldDecorator('pic',{
+                  getFieldDecorator('company1',{
+                    initialValue:entity.company1,
                     rules:[
                       {required:true,message:'图片必须上传'}
                     ]
 
                   })(
-                    <UploadImg/>
+                    <UploadImg imgCropProps={{width:100,height:100,useRatio:true}}/>
                   )
                 }
               </FormItem>
@@ -67,13 +78,14 @@ class Index extends Component {
                   label="公司荣誉"
               >
                 {
-                  getFieldDecorator('pic',{
+                  getFieldDecorator('company2',{
+                    initialValue:entity.company2,
                     rules:[
                       {required:true,message:'图片必须上传'}
                     ]
 
                   })(
-                    <UploadImg/>
+                    <UploadImg imgCropProps={{width:100,height:100,useRatio:true}}/>
                   )
                 }
               </FormItem>
@@ -83,13 +95,14 @@ class Index extends Component {
                   label="发展历程"
               >
                 {
-                  getFieldDecorator('pic',{
+                  getFieldDecorator('company3',{
+                    initialValue:entity.company3,
                     rules:[
                       {required:true,message:'图片必须上传'}
                     ]
 
                   })(
-                    <UploadImg/>
+                    <UploadImg imgCropProps={{width:100,height:100,useRatio:true}}/>
                   )
                 }
               </FormItem>
@@ -99,13 +112,14 @@ class Index extends Component {
                   label="愿景使命"
               >
                 {
-                  getFieldDecorator('pic',{
+                  getFieldDecorator('company4',{
+                    initialValue:entity.company4,
                     rules:[
                       {required:true,message:'图片必须上传'}
                     ]
 
                   })(
-                    <UploadImg/>
+                    <UploadImg imgCropProps={{width:100,height:100,useRatio:true}}/>
                   )
                 }
               </FormItem>
@@ -114,11 +128,8 @@ class Index extends Component {
 
 
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" style={{marginRight:'15px'}}>
+            <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
               保存
-            </Button>
-            <Button onClick={()=>pop()}>
-              返回
             </Button>
           </Form.Item>
         </Form>

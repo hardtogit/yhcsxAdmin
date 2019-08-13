@@ -98,7 +98,7 @@ export class Compiler {
         })
         }
 
-        <Col {...btnCollayout} style={{ textAlign: 'center', float: 'right', marginTop: '5px' }}>
+        <Col {...btnCollayout} style={{ textAlign: 'center', float: 'right', marginTop: '5px',marginBottom:'24px' }}>
           {
           // btns
             btnElements.map(({ type, style, source, title }) => {

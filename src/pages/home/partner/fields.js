@@ -1,25 +1,23 @@
+import React from 'react';
 const searchFields=[{
-  key:'name',
+  key:'title',
   name:'标题'
 }];
 const tableFields = [
   {
-    key: '_id',
-    name: '缩略图'
-  },
-  {
-    key: 'active',
-    name: '标题',
-    render: (v) => {
-      return v.status;
+    key: 'fid',
+    name: '缩略图',
+    render:(v)=>{
+      return (<img height={40} src={`http://47.92.169.34/cgi-bin/download.pl?fid=${v}&proj=demo8`} alt=""/>);
     }
   },
   {
-    key: 'movie',
-    name: '链接',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'title',
+    name: '标题'
+  },
+  {
+    key: 'link',
+    name: '链接'
   }
 ];
 export {

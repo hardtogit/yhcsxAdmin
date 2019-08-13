@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import UploadImg from '@/components/UploadImg';
-import {model} from '@/utils/portal';
-import {Form,Select,Row,Col,Button} from 'antd';
+import {Form,Col,Button,Row,message} from 'antd';
+import Fetch from '@/utils/baseSever';
 
-const Option=Select.Option;
 const FormItem=Form.Item;
 const formItemLayout = {
   labelCol: { span: 8 },
@@ -21,25 +20,35 @@ const tailFormItemLayout = {
     }
   }
 };
-@model('homeBanner')
 @Form.create()
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state={
-      loading:false
+      loading:false,
+      entity:{}
     };
+  }
+  componentDidMount(){
+    Fetch({obj:'admin',act:'homejoinread'}).then((response)=>{
+      this.setState({
+        entity:response.info
+      });
+    });
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        Fetch({obj:'admin',act:'homejoinmodify',...values}).then(()=>{
+          message.success('操作成功');
+        });
       }
     });
   };
   render() {
-    const { form:{getFieldDecorator},pop }=this.props;
+    const {entity}=this.state;
+    const { form:{getFieldDecorator}}=this.props;
     return (
       <Form
           {...formItemLayout}
@@ -48,43 +57,42 @@ class Index extends Component {
         <Row>
           <Col span={6}>
             <FormItem
-                label="公司概况"
+                label="加入我们"
             >
               {
-                getFieldDecorator('pic',{
+                getFieldDecorator('join1',{
+                  initialValue:entity.join1,
                   rules:[
                     {required:true,message:'图片必须上传'}
                   ]
 
                 })(
-                  <UploadImg/>
+                  <UploadImg imgCropProps={{width:1024,height:395,modalWidth:800,useRatio:true}}/>
                 )
               }
             </FormItem>
           </Col>
           <Col span={6}>
             <FormItem
-                label="公司荣誉"
+                label="洽谈合作"
             >
               {
-                getFieldDecorator('pic',{
+                getFieldDecorator('join2',{
+                  initialValue:entity.join2,
                   rules:[
                     {required:true,message:'图片必须上传'}
                   ]
 
                 })(
-                  <UploadImg/>
+                  <UploadImg imgCropProps={{width:878,height:210,modalWidth:800,useRatio:true}}/>
                 )
               }
             </FormItem>
           </Col>
         </Row>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" style={{marginRight:'15px'}}>
+          <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
             保存
-          </Button>
-          <Button onClick={()=>pop()}>
-            返回
           </Button>
         </Form.Item>
       </Form>

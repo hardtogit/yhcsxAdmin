@@ -1,41 +1,46 @@
+import React from 'react';
 const searchFields=[
   {
-    key: 'movie',
+    key: 'location',
     name: '设备类型',
-    render: (v) => {
-      return v.status;
+    type:'enum',
+    enums:{
+      pc:'pc',
+      wap:'wap'
     }
   },
   {
     key: 'status',
-    name: '状态'
+    name: '状态',
+    type:'enum',
+    enums:{
+      生效:'生效',
+      失效:'失效'
+    }
   }
 ];
 const tableFields = [
   {
-    key: '_id',
-    name: '缩略图'
-  },
-  {
-    key: 'active',
-    name: '链接',
-    render: (v) => {
-      return v.status;
+    key: 'fid',
+    name: '缩略图',
+    render:(v)=>{
+      return (<img height={40} src={`http://47.92.169.34/cgi-bin/download.pl?fid=${v}&proj=demo8`} alt=""/>);
     }
   },
   {
-    key: 'movie',
-    name: '设备类型',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'link',
+    name: '链接'
   },
   {
-    key: 'status',
+    key: 'location',
+    name: '设备类型'
+  },
+  {
+    key: 'description',
     name: '描述'
   },
   {
-    key: '状态',
+    key: 'status',
     name: '状态'
   }
 ];

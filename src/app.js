@@ -7,9 +7,11 @@ window.apiconn.response_received_handler = function(jo){
       history.push('/login');
     }
   };
-  if (jo.ustr != null && jo.ustr != '' && jo.uerr != 'ERR_CONNECTION_EXCEPTION') {
+  if (jo.ustr) {
     Modal.error({title:'错误提示',content:jo.ustr});
-    window.callBackFn[jo.obj + '_' + jo.act].shift()(jo);
+    if(window.callBackFn[jo.obj + '_' + jo.act]&&window.callBackFn[jo.obj + '_' + jo.act].length){
+      window.callBackFn[jo.obj + '_' + jo.act].shift()(jo);
+    }
   } else {
     if (window.callBackFn[jo.obj + '_' + jo.act] && window.callBackFn[jo.obj + '_' + jo.act].length) {
       window.callBackFn[jo.obj + '_' + jo.act].shift()(jo);

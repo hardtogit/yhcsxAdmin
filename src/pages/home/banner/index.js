@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {model} from '@/utils/portal';
-import {Table,Button} from 'antd';
+import {Table,Divider,Modal} from 'antd';
 import ListPage from '@/components/Page/listPage';
 import {tableFields,searchFields} from './fields';
 import  {SearchFormHook} from '@/components/SearchFormPro/search';
 import TableUtils from '@/utils/table';
+import Fetch from '@/utils/baseSever';
 
 
 const createColumns=TableUtils.createColumns;
@@ -19,12 +20,44 @@ class Index extends Component {
       key: 'operator',
       name: '操作',
       width: 200,
-      render: (text, record) => (
-         <>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-           </>
+      render: (v, row) => (
+        <>
+          <a onClick={() => {
+            Modal.confirm({
+                title: '系统提示',
+                content: '确定生效？',
+                onOk: () => Fetch({ obj: 'admin', act: 'bannerset', status: '生效', id: row['_id'] }).then(() => {
+                  this.props.fetchList({
+                    ...this.searchParams, obj: 'admin',
+                    act: 'bannerlist',
+                    type: 'home'
+                  });
+                })
+              }
+            );
+          }}
+          >生效</a>
+          <Divider type="vertical"/>
+          <a onClick={() => {
+            Modal.confirm({
+              title: '系统提示',
+              content: '确定失效？',
+              onOk: () => Fetch({ obj: 'admin', act: 'bannerset', status: '失效', id: row['_id'] }).then(() => {
+                this.props.fetchList({
+                  ...this.searchParams, obj: 'admin',
+                  act: 'bannerlist',
+                  type: 'home'
+                });
+              })
+            });
+          }}
+          >失效</a>
+          <Divider type="vertical"/>
+          <a onClick={() => {
+            this.props.push(`/home/banner/edit/${JSON.stringify(row)}`);
+          }}
+          >修改</a>
+        </>
       )
     }];
     return createColumns(fields).enhance(extraFields).values();
@@ -33,7 +66,9 @@ class Index extends Component {
     const {fetchList,goPage}=this.props;
     goPage('banners',1);
     this.searchParams=values;
-    fetchList(values);
+    fetchList({...values, obj: 'admin',
+      act: 'bannerlist',
+      type:'home'});
 
   }
   render() {
@@ -56,7 +91,9 @@ class Index extends Component {
       pagination:push.pagination,
       onChange({ current }) {
         goPage('banners',current);
-        fetchList(this.searchParams);
+        fetchList({...this.searchParams, obj: 'admin',
+          act: 'bannerlist',
+          type:'home'});
       }
     };
 

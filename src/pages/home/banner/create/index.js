@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import UploadImg from '@/components/UploadImg';
 import {screenType} from '@/config/constants';
 import {model} from '@/utils/portal';
-import {Form,Select,Input,Button} from 'antd';
+import {Form,Select,Input,Button,message} from 'antd';
+import Fetch from '@/utils/baseSever';
 
 const Option=Select.Option;
 const FormItem=Form.Item;
@@ -35,6 +36,10 @@ class Index extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        Fetch({...values,type:'home',obj:'admin',act:'banneradd'}).then(()=>{
+          message.success('新增成功');
+          this.props.pop();
+        });
         console.log('Received values of form: ', values);
       }
     });
@@ -50,18 +55,18 @@ class Index extends Component {
               label="图片"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('picture',{
                 rules:[
                   {required:true,message:'图片必须上传'}
                 ]
 
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:1920,height:847,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
           <FormItem label="设备类型">
-            {getFieldDecorator('screenType', {
+            {getFieldDecorator('location', {
               rules: [
                 { required: true, message: '设备类型必须选择' }
               ]
@@ -83,14 +88,14 @@ class Index extends Component {
             )}
           </FormItem>
           <FormItem label="链接">
-            {getFieldDecorator('description', {
+            {getFieldDecorator('link', {
               rules: []
             })(
               <Input/>
             )}
           </FormItem>
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" style={{marginRight:'15px'}}>
+            <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
               保存
             </Button>
             <Button onClick={()=>pop()}>

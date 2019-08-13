@@ -9,8 +9,8 @@ import { withLoading } from '@/utils/dva';
 export default model.extend({
   namespace: 'layout',
   state: {
-    // siteName: '永辉彩食鲜后台管理系统',
-    siteName: 'ss',
+    siteName: '永辉彩食鲜后台管理系统',
+    // siteName: 'ss',
     user: { username: cookie.get('username') || '' },
     loading: { login: false }
   },

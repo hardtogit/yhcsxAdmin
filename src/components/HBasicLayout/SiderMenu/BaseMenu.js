@@ -83,22 +83,25 @@ export default class BaseMenu extends React.Component {
   }
 
   renderDeepMenus(menus) {
-    return menus.map(({ children, key, icon, title, path }) => {
+    return menus.map(({ children, key, icon, title, path,hidden }) => {
       const iconTitle = (
         <span>
           {icon && <Icon type={icon} />}
           <span>{title}</span>
         </span>
       );
-      return (children ? (
-        <SubMenu key={key} title={iconTitle}>
-          {this.renderDeepMenus(children)}
-        </SubMenu>
-      ) : (
-        <Menu.Item key={key}>
-          <Link to={path} >{iconTitle}</Link>
-        </Menu.Item>
-      ));
+      if(!hidden){
+        return (children ? (
+          <SubMenu key={key} title={iconTitle}>
+            {this.renderDeepMenus(children)}
+          </SubMenu>
+        ) : (
+          <Menu.Item key={key}>
+            <Link to={path} >{iconTitle}</Link>
+          </Menu.Item>
+        ));
+      }
+
     });
   }
 

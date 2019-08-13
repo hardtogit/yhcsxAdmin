@@ -53,7 +53,7 @@ class Index extends Component {
           }}
           >生效</a>
           <Divider type="vertical" />
-          <a  onClick={()=>{this.props.push('/factory/manage/edit/1');}}>修改</a>
+          <a  onClick={()=>{this.props.push(`/factory/manage/edit/${row['_id']}`);}}>修改</a>
           <Divider type="vertical" />
           <a  onClick={()=>{
             Modal.confirm({

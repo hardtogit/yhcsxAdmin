@@ -34,15 +34,24 @@ class Id extends Component {
   constructor(props) {
     super(props);
     this.state={
-      loading:false
+      loading:false,
+      entity:{}
     };
+  }
+  componentDidMount(){
+    Fetch({obj:'admin',act:'ftymanageread',id:this.props.match.params.id}).then((response)=>{
+      this.setState({
+        entity:response.info
+      });
+      this.props.form.setFieldsValue(response.info);
+    });
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        Fetch({...values,obj:'admin',act:'ftymanageadd'}).then(()=>{
-          message.success('新增成功');
+        Fetch({...values,obj:'admin',act:'ftymanagemodify',id:this.props.match.params.id}).then(()=>{
+          message.success('修改成功');
           this.props.pop();
         });
       }

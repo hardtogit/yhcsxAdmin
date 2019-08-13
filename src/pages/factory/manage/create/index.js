@@ -51,112 +51,112 @@ class Index extends Component {
   render() {
     const { form:{getFieldDecorator},pop }=this.props;
     return (
-        <Form
-            {...formItemLayout}
-            style={{maxWidth:'600px'}}
+      <Form
+          {...formItemLayout}
+          style={{maxWidth:'600px'}}
+      >
+        <FormItem
+            label="名称"
         >
-          <FormItem
-              label="名称"
-          >
-            {
-              getFieldDecorator('name',{
-                rules:[
-                  {required:true,message:'工厂名称必须填写'}
-                ]
-
-              })(
-                <Input/>
-              )
-            }
-          </FormItem>
-          <FormItem
-              label="标题图片"
-          >
-            {
-              getFieldDecorator('title',{
-                rules:[
-                  {required:true,message:'标题图片必须上传'}
-                ]
-
-              })(
-                <UploadImg/>
-              )
-            }
-          </FormItem>
-          <FormItem
-              label="工厂介绍"
-          >
-            {
-              getFieldDecorator('description',{
-                rules:[
-                  {required:true,message:'工厂介绍必须填写'}
-                ]
-
-              })(
-                <Input.TextArea autosize={{minRows: 4, maxRows: 6}}/>
-              )
-            }
-          </FormItem>
-          <FormItem
-              label="地址"
-          >
-            {
-              getFieldDecorator('address',{
-                rules:[
-                  {required:true,message:'地址必须填写'}
-                ]
-
-              })(
-                <Input/>
-              )
-            }
-          </FormItem>
-          <Row>
-          <Col span={12}>
-          <FormItem
-              label="经度"
-              {...picFormItemLayout}
-          >
-            {
-              getFieldDecorator('longitude',{
-                rules:[
-                  {required:true,message:'经度必须填写'}
-                ]
-
-              })(
-                <InputNumber />
-              )
-            }
-          </FormItem>
-          </Col>
-          <Col span={12}>
-          <FormItem
-              label="纬度"
-              {...picFormItemLayout}
-          >
-            {
-              getFieldDecorator('latitude',{
-                rules:[
-                  {required:true,message:'纬度必须填写'}
-                ]
-
-              })(
-                <InputNumber />
-              )
-            }
-          </FormItem>
-          </Col>
-          </Row>
-          <FormItem label="中间图">
-            {getFieldDecorator('middle', {
-              rules: [
-                { required: true, message: '中间图必须上传' }
+          {
+            getFieldDecorator('name',{
+              rules:[
+                {required:true,message:'工厂名称必须填写'}
               ]
+
             })(
-              <UploadImg/>
-            )}
-          </FormItem>
-          <Row>
+              <Input/>
+            )
+          }
+        </FormItem>
+        <FormItem
+            label="标题图片"
+        >
+          {
+            getFieldDecorator('title',{
+              rules:[
+                {required:true,message:'标题图片必须上传'}
+              ]
+
+            })(
+              <UploadImg  imgCropProps={{width:785,height:128,modalWidth:800,useRatio:true}}/>
+            )
+          }
+        </FormItem>
+        <FormItem
+            label="工厂介绍"
+        >
+          {
+            getFieldDecorator('description',{
+              rules:[
+                {required:true,message:'工厂介绍必须填写'}
+              ]
+
+            })(
+              <Input.TextArea autosize={{minRows: 4, maxRows: 6}}/>
+            )
+          }
+        </FormItem>
+        <FormItem
+            label="地址"
+        >
+          {
+            getFieldDecorator('address',{
+              rules:[
+                {required:true,message:'地址必须填写'}
+              ]
+
+            })(
+              <Input/>
+            )
+          }
+        </FormItem>
+        <Row>
+          <Col span={12}>
+            <FormItem
+                label="经度"
+                {...picFormItemLayout}
+            >
+              {
+                getFieldDecorator('longitude',{
+                  rules:[
+                    {required:true,message:'经度必须填写'}
+                  ]
+
+                })(
+                  <InputNumber />
+                )
+              }
+            </FormItem>
+          </Col>
+          <Col span={12}>
+            <FormItem
+                label="纬度"
+                {...picFormItemLayout}
+            >
+              {
+                getFieldDecorator('latitude',{
+                  rules:[
+                    {required:true,message:'纬度必须填写'}
+                  ]
+
+                })(
+                  <InputNumber />
+                )
+              }
+            </FormItem>
+          </Col>
+        </Row>
+        <FormItem label="中间图">
+          {getFieldDecorator('middle', {
+            rules: [
+              { required: true, message: '中间图必须上传' }
+            ]
+          })(
+            <UploadImg  imgCropProps={{width:1200,height:490,modalWidth:800,useRatio:true}}/>
+          )}
+        </FormItem>
+        <Row>
           <Col span={12}>
             <FormItem label="底图左" {...picFormItemLayout}>
               {getFieldDecorator('left', {
@@ -164,7 +164,7 @@ class Index extends Component {
                   { required: true, message: '底图左必须上传' }
                 ]
               })(
-                <UploadImg/>
+                <UploadImg  imgCropProps={{width:527,height:406,modalWidth:800,useRatio:true}}/>
               )}
             </FormItem>
           </Col>
@@ -175,20 +175,20 @@ class Index extends Component {
                   { required: true, message: '底图又必须上传' }
                 ]
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:527,height:406,modalWidth:800,useRatio:true}}/>
               )}
             </FormItem>
           </Col>
-          </Row>
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
-              保存
-            </Button>
-            <Button onClick={()=>pop()}>
-              返回
-            </Button>
-          </Form.Item>
-        </Form>
+        </Row>
+        <Form.Item {...tailFormItemLayout}>
+          <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
+            保存
+          </Button>
+          <Button onClick={()=>pop()}>
+            返回
+          </Button>
+        </Form.Item>
+      </Form>
     );
   }
 }

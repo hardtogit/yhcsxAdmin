@@ -88,7 +88,7 @@ class Id extends Component {
                 ]
 
               })(
-                <UploadImg/>
+                <UploadImg  imgCropProps={{width:785,height:128,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
@@ -162,7 +162,7 @@ class Id extends Component {
                 { required: true, message: '中间图必须上传' }
               ]
             })(
-              <UploadImg/>
+              <UploadImg  imgCropProps={{width:1200,height:490,modalWidth:800,useRatio:true}}/>
             )}
           </FormItem>
           <Row>
@@ -173,7 +173,7 @@ class Id extends Component {
                   { required: true, message: '底图左必须上传' }
                 ]
               })(
-                <UploadImg/>
+                <UploadImg  imgCropProps={{width:527,height:406,modalWidth:800,useRatio:true}}/>
               )}
             </FormItem>
           </Col>
@@ -184,7 +184,7 @@ class Id extends Component {
                   { required: true, message: '底图又必须上传' }
                 ]
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:527,height:406,modalWidth:800,useRatio:true}}/>
               )}
             </FormItem>
           </Col>

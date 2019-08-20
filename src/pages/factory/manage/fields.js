@@ -24,7 +24,7 @@ const tableFields = [
   },
   {
     key: 'description',
-    name: '工厂介绍',
+    name: '工厂介绍'
   },
   {
     key: 'status',

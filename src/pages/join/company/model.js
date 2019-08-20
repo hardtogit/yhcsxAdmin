@@ -4,21 +4,21 @@ import { withLoading } from '@/utils/dva';
 import Fetch from '@/utils/baseSever';
 
 export default model.extend({
-  namespace: 'homePartner',
+  namespace: 'companyManage',
   state: {
-    partners: pageConfig,
+    companies: pageConfig,
     loading: {
-      banners: false
+      companies: false
     }
   },
   subscriptions: {
     setupSubscriber({ listen, dispatch }) {
-      listen('/homeBanner', () => {
+      listen('/join/company', () => {
         setTimeout(() => {
           dispatch({
             type: 'fetchList', payload: {
               obj: 'admin',
-              act: 'authlist'
+              act: 'joinsubcompanylist'
             }
           });
         }, 0);
@@ -29,14 +29,13 @@ export default model.extend({
 
   effects: {
     * fetchList({ payload }, { update, call, select }) {
-      const pageModel = yield select(({ homePartner }) => homePartner.partners.pagination);
-      const listData = yield call(withLoading(Fetch, 'partners'), {
-        ...payload,
-        totalpage: pageModel.totalpage,
-        presentpage: pageModel.current - 1,
-        amount: pageModel.total
+      const pageModel = yield select(({ companyManage }) => companyManage.companies.pagination);
+      const response = yield call(withLoading(Fetch, 'factory'), {
+        page_num: pageModel.current - 1,
+        page_size: pageModel.pageSize,
+        ...payload
       });
-      yield update({ partners: { list: listData.list, pagination: { ...pageModel, total: listData.tc } } });
+      yield update({ companies: { list: response.info, pagination: { ...pageModel, total: response.count } } });
     }
   },
   reducers: {}

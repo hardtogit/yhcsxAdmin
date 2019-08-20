@@ -3,6 +3,8 @@ import UploadImg from '@/components/UploadImg';
 import {screenType} from '@/config/constants';
 import {model} from '@/utils/portal';
 import {Form,Select,Input,Button,InputNumber,Col} from 'antd';
+import { message } from 'antd/lib/index';
+import Fetch from '@/utils/baseSever';
 
 const Option=Select.Option;
 const FormItem=Form.Item;
@@ -26,7 +28,7 @@ const tailFormItemLayout = {
     }
   }
 };
-// @model('homeBanner')
+@model('baseModel')
 @Form.create()
 class Index extends Component {
   constructor(props) {
@@ -39,6 +41,10 @@ class Index extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        Fetch({...values,obj:'admin',act:'ptrprovideradd'}).then(()=>{
+          message.success('新增成功');
+          this.props.pop();
+        });
         console.log('Received values of form: ', values);
       }
     });
@@ -54,13 +60,13 @@ class Index extends Component {
               label="图片"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('picture',{
                 rules:[
                   {required:true,message:'图片必须上传'}
                 ]
 
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:440,height:332,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
@@ -68,9 +74,9 @@ class Index extends Component {
               label="标题"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('title',{
                 rules:[
-                  {required:true,message:'图片必须上传'}
+                  {required:true,message:'标题必须填写'}
                 ]
 
               })(
@@ -82,9 +88,9 @@ class Index extends Component {
               label="详情"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('detail',{
                 rules:[
-                  {required:true,message:'企业介绍必须填写'}
+                  {required:true,message:'详情必须填写'}
                 ]
 
               })(
@@ -93,7 +99,7 @@ class Index extends Component {
             }
           </FormItem>
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" style={{marginRight:'15px'}}>
+            <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
               保存
             </Button>
             <Button onClick={()=>pop()}>

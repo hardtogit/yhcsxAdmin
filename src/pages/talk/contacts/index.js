@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import UploadImg from '@/components/UploadImg';
-import {screenType} from '@/config/constants';
-import {model} from '@/utils/portal';
-import {Form,Select,Input,Button,InputNumber,Col} from 'antd';
+import {Form,Select,Input,Button} from 'antd';
+import Fetch from '@/utils/baseSever';
+import { message } from 'antd/lib/index';
 
 const Option=Select.Option;
 const FormItem=Form.Item;
@@ -32,18 +32,29 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state={
-      loading:false
+      loading:false,
+      entity:{}
     };
+  }
+  componentDidMount(){
+    Fetch({obj:'admin',act: 'cptcontactread'}).then((response)=>{
+      this.setState({
+        entity:response.info
+      });
+    });
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        Fetch({...values,obj :'admin',act: 'cptcontactmodify'}).then(()=>{
+          message.success('设置成功');
+        });
       }
     });
   };
   render() {
+    const {entity}=this.state;
     const { form:{getFieldDecorator},pop }=this.props;
     return (
         <Form
@@ -54,13 +65,14 @@ class Index extends Component {
               label="图片"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('picture',{
+                initialValue:entity.picture,
                 rules:[
                   {required:true,message:'图片必须上传'}
                 ]
 
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:750,height:384,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
@@ -68,9 +80,10 @@ class Index extends Component {
               label="公司标题"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('title',{
+                initialValue:entity.title,
                 rules:[
-                  {required:true,message:'图片必须上传'}
+                  {required:true,message:'公司标题必须填写'}
                 ]
 
               })(
@@ -82,9 +95,40 @@ class Index extends Component {
               label="详细地址"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('address',{
+                initialValue:entity.address,
                 rules:[
-                  {required:true,message:'企业介绍必须填写'}
+                  {required:true,message:'详细地址必须填写'}
+                ]
+
+              })(
+                <Input/>
+              )
+            }
+          </FormItem>
+          <FormItem
+              label="经度"
+          >
+            {
+              getFieldDecorator('longitude',{
+                initialValue:entity.longitude,
+                rules:[
+                  {required:true,message:'经度'}
+                ]
+
+              })(
+                <Input/>
+              )
+            }
+          </FormItem>
+          <FormItem
+              label="纬度"
+          >
+            {
+              getFieldDecorator('latitude',{
+                initialValue:entity.latitude,
+                rules:[
+                  {required:true,message:'纬度'}
                 ]
 
               })(
@@ -93,7 +137,7 @@ class Index extends Component {
             }
           </FormItem>
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" style={{marginRight:'15px'}}>
+            <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
               保存
             </Button>
           </Form.Item>

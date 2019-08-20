@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {model} from '@/utils/portal';
-import {Table,Button} from 'antd';
+import {Table,Modal,Divider,message} from 'antd';
 import ListPage from '@/components/Page/listPage';
 import {tableFields,searchFields} from './fields';
 import  {SearchFormHook} from '@/components/SearchFormPro/search';
 import TableUtils from '@/utils/table';
+import Fetch from '@/utils/baseSever';
 
 
 const createColumns=TableUtils.createColumns;
@@ -19,11 +20,59 @@ class Index extends Component {
       key: 'operator',
       name: '操作',
       width: 200,
-      render: (text, record) => (
+      render: (v, row) => (
         <>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
+          <a onClick={() => {
+            Modal.confirm({
+                title: '系统提示',
+                content: '确定生效？',
+                onOk: () => Fetch({ obj: 'admin', act: 'newsmanageset', status: '生效', id: row['_id'] }).then(() => {
+                  this.props.fetchList({
+                    ...this.searchParams, obj: 'admin',
+                    act: 'newsmanagelist',
+                    type: 'home'
+                  });
+                })
+              }
+            );
+          }}
+          >生效</a>
+          <Divider type="vertical"/>
+          <a onClick={() => {
+            Modal.confirm({
+              title: '系统提示',
+              content: '确定失效？',
+              onOk: () => Fetch({ obj: 'admin', act: 'newsmanageset', status: '失效', id: row['_id'] }).then(() => {
+                this.props.fetchList({
+                  ...this.searchParams, obj: 'admin',
+                  act: 'newsmanagelist',
+                  type: 'home'
+                });
+              })
+            });
+          }}
+          >失效</a>
+          <Divider type="vertical"/>
+          <a onClick={() => {
+            this.props.push(`/news/manage/edit/${row['_id']}`);
+          }}
+          >修改</a>
+          <Divider type="vertical"/>
+          <a onClick={() => {
+            Modal.confirm({
+              title: '系统提示',
+              content: '确认删除？',
+              onOk: () => Fetch({ obj: 'admin', act: 'newsmanagedel', id: row['_id'] }).then(() => {
+                message.success('删除成功');
+                this.props.fetchList({
+                  ...this.searchParams, obj: 'admin',
+                  act: 'newsmanagelist',
+                  type: 'home'
+                });
+              })
+            });
+          }}
+          >删除</a>
         </>
       )
     }];
@@ -31,9 +80,14 @@ class Index extends Component {
   }
   handleSearch=(values)=>{
     const {fetchList,goPage}=this.props;
-    goPage('banners',1);
+    goPage('news',1);
+    if(values.date){
+      values.starttime=values.date[0];
+      values.endtime=values.date[1];
+      delete values.date;
+    }
     this.searchParams=values;
-    fetchList(values);
+    fetchList({...values,obj:'admin',act:'newsmanagelist'});
 
   }
   render() {
@@ -54,9 +108,9 @@ class Index extends Component {
       dataSource: news.list,
       loading: loading.factory,
       pagination:push.pagination,
-      onChange({ current }) {
+      onChange:({ current })=> {
         goPage('news',current);
-        fetchList(this.searchParams);
+        fetchList({...this.searchParams,obj:'admin',act:'newsmanagelist'});
       }
     };
 

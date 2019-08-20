@@ -99,7 +99,7 @@ class Index extends Component {
       dataSource: factory.list,
       loading: loading.factory,
       pagination:push.pagination,
-      onChange({ current }) {
+      onChange:({ current })=>{
         goPage('factory',current);
         fetchList(this.searchParams);
       }

@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import {model} from '@/utils/portal';
-import {Table,Button} from 'antd';
-import ListPage from '@/components/Page/listPage';
-import {tableFields,searchFields} from './fields';
-import  {SearchFormHook} from '@/components/SearchFormPro/search';
+import {Table,Button,Divider,Modal} from 'antd';
+import {tableFields} from './fields';
 import TableUtils from '@/utils/table';
+import Fetch from '@/utils/baseSever';
 import AddModal from './components/addModel';
 
 
+
 const createColumns=TableUtils.createColumns;
-@model('homePartner')
+@model('companyManage')
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state={
-      visible:false
+      visible:false,
+      type:'add',
+      entity:{}
     };
-    this.searchParams={};
   }
   getInitalColumns(fields) {
     const extraFields = [{
@@ -24,58 +25,108 @@ class Index extends Component {
       name: '操作',
       width: 200,
       render: (text, record) => (
-         <>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-          <a  onClick={()=>{this.props.push('/auditDetail/1');}}>审核</a>
-           </>
+        <>
+          <a  onClick={()=>{
+            this.setState({
+              visible:true,
+              type:'edit',
+              entity:record
+            });
+          }}
+          >修改</a>
+          <Divider type={'vertical'} />
+          <a  onClick={() => {
+            Modal.confirm({
+                title: '系统提示',
+                content: '确定生效？',
+                onOk: () => Fetch({ obj: 'admin', act: 'joinsubcompanyset', status: '生效', id: record['_id'] }).then(() => {
+                  this.props.fetchList({
+                    obj: 'admin',
+                    act: 'joinsubcompanylist'
+
+                  });
+                })
+              }
+            );
+          }}
+          >生效</a>
+          <Divider type={'vertical'} />
+          <a  onClick={() => {
+            Modal.confirm({
+                title: '系统提示',
+                content: '确定失效？',
+                onOk: () => Fetch({ obj: 'admin', act: 'joinsubcompanyset', status: '失效', id: record['_id'] }).then(() => {
+                  this.props.fetchList({
+                    obj: 'admin',
+                    act: 'joinsubcompanylist'
+                  });
+                })
+              }
+            );
+          }}
+          >失效</a>
+          <Divider type={'vertical'} />
+          <a  onClick={() => {
+            Modal.confirm({
+                title: '系统提示',
+                content: '确定删除？',
+                onOk: () => Fetch({ obj: 'admin', act: 'joinsubcompanydel', id: record['_id'] }).then(() => {
+                  this.props.fetchList({
+                    ...this.searchParams, obj: 'admin',
+                    act: 'joinsubcompanylist'
+                  });
+                })
+              }
+            );
+          }}
+          >删除</a>
+        </>
       )
     }];
     return createColumns(fields).enhance(extraFields).values();
   }
-  handleSearch=(values)=>{
-    const {fetchList,goPage}=this.props;
-    goPage('banners',1);
-    this.searchParams=values;
-    fetchList(values);
-
-  }
   render() {
-    const {visible}=this.state;
-    const {push,partners,loading,fetchList,goPage}=this.props;
-    const searchProps={
-      fields:searchFields,
-      onSearch:this.handleSearch,
-      btns:[{source:'add',title:'新增'}],
-      handler:(source)=>{
-        if(source==='add'){
-          this.setState({
-            visible:true
-          });
-        }
-    }
-    };
+    const {visible,type,entity}=this.state;
+    const {push,companies,loading,fetchList,goPage}=this.props;
     const tableProps= {
       columns:this.getInitalColumns(tableFields),
       bordered:true,
-      dataSource: partners.list,
-      loading: loading.partners,
-      pagination:partners.pagination,
-      onChange({ current }) {
-        goPage('partners',current);
-        fetchList(this.searchParams);
+      dataSource: companies.list,
+      loading: loading.companies,
+      pagination:push.pagination,
+      onChange:({ current })=>{
+        goPage('companies',current);
+        fetchList({obj: 'admin',
+          act: 'joinsubcompanylist'});
       }
     };
     const addModalProps={
-      onCancel:()=>this.setState({
-        visible:false
-      })
+      onCancel:()=>{
+        this.setState({
+          visible:false
+        });
+      },
+      type,
+      entity,
+      callBack:()=>{
+        this.setState({
+          visible:false
+        });
+        fetchList({obj: 'admin',
+          act: 'joinsubcompanylist'});
+      }
     };
+
     return (
       <>
-        <Button type="primary" style={{marginBottom:'24px'}} onClick={()=>this.setState({
-          visible:true
-        })}
+        <Button type="primary" style={{marginBottom:'24px'}}
+            onClick={()=>{
+              this.setState({
+                visible:true,
+                type:'add',
+                entity:{}
+              });
+            }}
         >新增</Button>
         <Table {...tableProps}/>
         {visible&&<AddModal {...addModalProps}/>}

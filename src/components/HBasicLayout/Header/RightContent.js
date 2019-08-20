@@ -32,7 +32,7 @@ const renderMenu = list => (
 
 export default class RightContent extends PureComponent {
   renderUser() {
-    const { user, header = {} } = this.props;
+    const { header = {} } = this.props;
     const { setUserOps, onLogout = () => console.log('请配置 onLogout 使退出登录生效！') } = header;
     const item = {
       key: 'logout',
@@ -51,7 +51,7 @@ export default class RightContent extends PureComponent {
                 className="basic-layout-header-right-content-account-avatar"
                 icon="user"
             />
-            <span>{user.username}</span>
+            <span>{JSON.parse(sessionStorage.getItem('credential_data')).login_name}</span>
           </React.Fragment>
         </span>
       </Dropdown>

@@ -35,15 +35,17 @@ class Id extends Component {
   }
   componentDidMount(){
     const {match:{params:{id}}}=this.props;
-    this.setState({
-      banner:JSON.parse(id)
+    Fetch({obj:'admin',act:'bannerread',id}).then((response)=>{
+      this.setState({
+        banner:response.info
+      });
     });
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        Fetch({...values,type:'home',obj:'admin',act:'bannermodify',id:JSON.parse(this.props.match.params.id)['_id']}).then(()=>{
+        Fetch({...values,type:'home',obj:'admin',act:'bannermodify',id:this.props.match.params.id}).then(()=>{
           message.success('修改成功');
           this.props.pop();
         });

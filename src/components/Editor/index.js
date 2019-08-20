@@ -1,12 +1,13 @@
 import React from 'react';
 import { message } from 'antd';
 import ReactQuill from 'react-quill';
-import reqwest from 'reqwest';
 import 'react-quill/dist/quill.snow.css';
 /*
  * Custom "star" icon for the toolbar using an Octicon
  * https://octicons.github.io
  */
+
+/* eslint-disable */
 const CustomButton = () => <span className="octicon octicon-star" />;
 
 /*
@@ -30,25 +31,26 @@ function image() {
       if (fileInput.files != null && fileInput.files[0] != null) {
         const param = { local_file: fileInput.files[0] };
         console.log(fileInput.files[0]);
-        if (fileInput.files[0].size > 1024 * 1024 * 5) {
-          message.warn('图片大小不能超过5M');
+        if (fileInput.files[0].size > 1024 * 1024 * 1) {
+          message.warn('图片大小不能超过1M');
           return;
         }
         let params =new FormData();
           params.append('local_file',fileInput.files[0]);
-          params.append('proj','damo8');
+          params.append('proj','yh_ga');
 
-          fetch('http://47.92.169.34/cgi-bin/upload.pl', {
+          fetch('http://www.freshfood.cn/cgi-bin/upload.pl', {
             method: 'POST',
             body: params
           }).then(response => response.json())
             .then((data) => {
               console.log(data);
+              const path =`http://www.freshfood.cn/cgi-bin/download.pl?fid=${data.fid}&proj=yh_ga`;
               // const path = data[0].url;
               // // getSelection 选择当前光标位置咯 然后在下一个range.index用它自带的embed媒介插入方式插入你已经存储在阿里上的图片了
-              // const range = $this.quill.getSelection(true);
-              // $this.quill.insertEmbed(range.index, 'image', path);
-              // $this.quill.setSelection(range.index + 1);
+              const range = $this.quill.getSelection(true);
+              $this.quill.insertEmbed(range.index, 'image', path);
+              $this.quill.setSelection(range.index + 1);
             });
         };
 

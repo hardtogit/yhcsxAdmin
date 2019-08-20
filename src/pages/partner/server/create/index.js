@@ -3,6 +3,8 @@ import UploadImg from '@/components/UploadImg';
 import {screenType} from '@/config/constants';
 import {model} from '@/utils/portal';
 import {Form,Select,Input,Button,InputNumber,Col} from 'antd';
+import { message } from 'antd/lib/index';
+import Fetch from '@/utils/baseSever';
 
 const Option=Select.Option;
 const FormItem=Form.Item;
@@ -26,19 +28,24 @@ const tailFormItemLayout = {
     }
   }
 };
-// @model('homeBanner')
+@model('baseModel')
 @Form.create()
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state={
-      loading:false
+      loading:false,
+      entity:{}
     };
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        Fetch({...values,obj:'admin',act:'ptrcustomeradd'}).then(()=>{
+          message.success('新增成功');
+          this.props.pop();
+        });
         console.log('Received values of form: ', values);
       }
     });
@@ -54,13 +61,13 @@ class Index extends Component {
               label="首页图片"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('hpicture',{
                 rules:[
-                  {required:true,message:'图片必须上传'}
+                  {required:true,message:'首页图片必须上传'}
                 ]
 
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:310,height:192,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
@@ -68,23 +75,38 @@ class Index extends Component {
               label="ICON"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('icon',{
                 rules:[
-                  {required:true,message:'图片必须上传'}
+                  {required:true,message:'ICON必须上传'}
                 ]
 
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:190,height:250,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
           <FormItem
+              label="选中ICON"
+          >
+            {
+              getFieldDecorator('selicon',{
+                rules:[
+                  {required:true,message:'选中ICON必须上传'}
+                ]
+
+              })(
+                <UploadImg imgCropProps={{width:190,height:250,modalWidth:800,useRatio:true}}/>
+              )
+            }
+          </FormItem>
+
+          <FormItem
               label="客户名称"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('name',{
                 rules:[
-                  {required:true,message:'企业介绍必须填写'}
+                  {required:true,message:'客户名称必须填写'}
                 ]
 
               })(
@@ -96,9 +118,9 @@ class Index extends Component {
               label="详细描述"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('detail',{
                 rules:[
-                  {required:true,message:'企业介绍必须填写'}
+                  {required:true,message:'详细描述必须填写'}
                 ]
 
               })(
@@ -110,18 +132,18 @@ class Index extends Component {
               label="底部图片"
           >
             {
-              getFieldDecorator('pic',{
+              getFieldDecorator('bpicture',{
                 rules:[
-                  {required:true,message:'图片必须上传'}
+                  {required:true,message:'底部图片必须上传'}
                 ]
 
               })(
-                <UploadImg/>
+                <UploadImg imgCropProps={{width:1200,height:799,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" style={{marginRight:'15px'}}>
+            <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
               保存
             </Button>
             <Button onClick={()=>pop()}>

@@ -1,21 +1,15 @@
 const tableFields = [
   {
-    key: '_id',
+    key: 'name',
     name: '名称'
   },
   {
-    key: 'active',
-    name: '底部文案',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'detail',
+    name: '底部文案'
   },
   {
-    key: 'active',
-    name: '状态',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'status',
+    name: '状态'
   }
 ];
 export {

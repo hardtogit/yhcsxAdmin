@@ -1,3 +1,4 @@
+import React from 'react';
 const colLayout={
   xxl:{span:6},
   xl:{span:8},
@@ -5,15 +6,12 @@ const colLayout={
 };
 const searchFields=[
   {
-    key: 'name',
+    key: 'title',
     name: '标题',
-    render: (v) => {
-      return v.status;
-    },
     ColLayout:colLayout
   },
   {
-    key: 'status',
+    key: 'date',
     name: '发布时间',
     type:'dateRange',
     ColLayout:colLayout
@@ -23,54 +21,41 @@ const searchFields=[
     name: '状态',
     type:'enum',
     enums:{
-      1:'生效',
-      2:'失效'
+      生效:'生效',
+      失效:'失效'
     },
     ColLayout:colLayout
   },
   {
-    key: 'status',
+    key: 'home',
     name: '是否放置到首页',
     type:'enum',
     enums:{
-      1:'是',
-      2:'否'
+      是:'是',
+      否:'否'
     },
     ColLayout:colLayout
   }
 ];
 const tableFields = [
   {
-    key: '_id',
-    name: '缩略图'
-  },
-  {
-    key: 'active',
-    name: '标题',
-    render: (v) => {
-      return v.status;
+    key: 'picture',
+    name: '缩略图',
+    render:(v)=>{
+      return (<img height={40} src={`http://www.freshfood.cn/cgi-bin/download.pl?fid=${v}&proj=yh_ga`} alt=""/>);
     }
   },
   {
-    key: 'active',
-    name: '简介',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'title',
+    name: '标题'
   },
   {
-    key: 'movie',
-    name: '发布时间',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'description',
+    name: '简介'
   },
   {
-    key: 'movie',
-    name: '首页新闻（4条）',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'home',
+    name: '首页新闻（4条）'
   },
   {
     key: 'status',

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Modal, Form ,Input} from 'antd';
 import UploadImg from '@/components/UploadImg';
+import Fetch from '@/utils/baseSever';
+import { message } from 'antd/lib/index';
 
 const formItemLayout = {
   labelCol: {
@@ -15,12 +17,30 @@ const formItemLayout = {
 @Form.create()
 class Index extends Component {
   render() {
-    const { onCancel, form: { getFieldDecorator } } = this.props;
+    const { onCancel, form: { getFieldDecorator},type,entity,callBack } = this.props;
+      console.log(type);
     const modalProps = {
-      title: '新增分公司',
+      title: type==='add'?'新增分公司':'修改分公司',
       visible: true,
       onCancel,
       onOk: () => {
+          this.props.form.validateFields((error,values)=>{
+            if(!error){
+
+              if(type==='add'){
+                Fetch({...values,obj :'admin',act: 'joinsubcompanyadd'}).then(()=>{
+                  message.success('添加成功');
+                  callBack();
+                });
+              }else{
+                Fetch({...values,obj :'admin',act: 'joinsubcompanymodify',id:entity['_id']}).then(()=>{
+                  message.success('修改成功');
+                  callBack();
+                });
+              }
+
+            }
+          });
 
       }
     };
@@ -35,21 +55,21 @@ class Index extends Component {
             )}
           </Form.Item>
           <Form.Item label="地址">
-            {getFieldDecorator('lianjie', {
+            {getFieldDecorator('address', {
 
             })(
               <Input />
             )}
           </Form.Item>
           <Form.Item label="邮箱">
-            {getFieldDecorator('lianjie', {
+            {getFieldDecorator('email', {
 
             })(
               <Input />
             )}
           </Form.Item>
           <Form.Item label="电话">
-            {getFieldDecorator('lianjie', {
+            {getFieldDecorator('phone', {
 
             })(
               <Input />

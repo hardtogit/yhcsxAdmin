@@ -11,8 +11,8 @@ class Index extends Component {
         accept:'image/jpg,image/jpeg,image/png',
       multiple:false,
       showUploadList:false,
-      action:'http://47.92.169.34/cgi-bin/upload.pl',
-      data:{proj:'demo8'},
+      action:'http://www.freshfood.cn/cgi-bin/upload.pl',
+      data:{proj:'yh_ga'},
       headers:{ 'X-Requested-With': null , withCredentials: null}
     },
     imgCropProps:{
@@ -51,7 +51,7 @@ class Index extends Component {
   };
   render() {
     const {fid,loading}=this.state;
-    const {uploadProps,imgCropProps}=this.props;
+    const {uploadProps,imgCropProps,crop=true}=this.props;
     const uploadBtn = (
       <div>
         <Icon type="plus" loading={loading}/>
@@ -59,13 +59,20 @@ class Index extends Component {
       </div>
     );
     return (
-        <ImgCrop {...imgCropProps}>
-        <Upload {...uploadProps}
+      <>
+        {crop? <ImgCrop {...imgCropProps}>
+          <Upload {...uploadProps}
+              onChange={this.handleChange}
+          >
+            {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={`http://www.freshfood.cn/cgi-bin/download.pl?fid=${fid}&proj=yh_ga`} alt=""/>:uploadBtn}
+          </Upload>
+        </ImgCrop>:<Upload {...uploadProps}
             onChange={this.handleChange}
-        >
-          {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={`http://47.92.169.34/cgi-bin/download.pl?fid=${fid}&proj=demo8`} alt=""/>:uploadBtn}
-        </Upload>
-        </ImgCrop>
+                   >
+          {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={`http://www.freshfood.cn/cgi-bin/download.pl?fid=${fid}&proj=yh_ga`} alt=""/>:uploadBtn}
+        </Upload>}
+
+        </>
 
     );
   }

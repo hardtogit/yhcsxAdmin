@@ -4,39 +4,35 @@ import { withLoading } from '@/utils/dva';
 import Fetch from '@/utils/baseSever';
 
 export default model.extend({
-  namespace: 'factoryManage',
+  namespace: 'supplyManage',
   state: {
-    factory: pageConfig,
+    supplies: pageConfig,
     loading: {
-      banners: false
+      supplies: false
     }
   },
   subscriptions: {
     setupSubscriber({ listen, dispatch }) {
-      listen('/homeBanner', () => {
-        setTimeout(() => {
-          dispatch({
-            type: 'fetchList', payload: {
-              obj: 'admin',
-              act: 'authlist'
-            }
-          });
-        }, 0);
-
+      listen('/partner/supply', () => {
+        dispatch({
+          type: 'fetchList', payload: {
+            obj: 'admin',
+            act: 'ptrproviderlist'
+          }
+        });
       });
     }
   },
 
   effects: {
     * fetchList({ payload }, { update, call, select }) {
-      const pageModel = yield select(({ factoryBanner }) => factoryBanner.factory.pagination);
-      const listData = yield call(withLoading(Fetch, 'banners'), {
-        ...payload,
-        totalpage: pageModel.totalpage,
-        presentpage: pageModel.current - 1,
-        amount: pageModel.total
+      const pageModel = yield select(({ supplyManage }) => supplyManage.supplies.pagination);
+      const response = yield call(withLoading(Fetch, 'supplies'), {
+        page_num: pageModel.current - 1,
+        page_size: pageModel.pageSize,
+        ...payload
       });
-      yield update({ audits: { list: listData.list, pagination: { ...pageModel, total: listData.tc } } });
+      yield update({ supplies: { list: response.info, pagination: { ...pageModel, total: response.count } } });
     }
   },
   reducers: {}

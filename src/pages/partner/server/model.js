@@ -4,39 +4,35 @@ import { withLoading } from '@/utils/dva';
 import Fetch from '@/utils/baseSever';
 
 export default model.extend({
-  namespace: 'factoryManage',
+  namespace: 'serverManage',
   state: {
-    factory: pageConfig,
+    servers: pageConfig,
     loading: {
-      banners: false
+      servers: false
     }
   },
   subscriptions: {
     setupSubscriber({ listen, dispatch }) {
-      listen('/homeBanner', () => {
-        setTimeout(() => {
+      listen('/partner/server', () => {
           dispatch({
             type: 'fetchList', payload: {
               obj: 'admin',
-              act: 'authlist'
+              act: 'ptrcustomerlist'
             }
           });
-        }, 0);
-
       });
     }
   },
 
   effects: {
     * fetchList({ payload }, { update, call, select }) {
-      const pageModel = yield select(({ factoryBanner }) => factoryBanner.factory.pagination);
-      const listData = yield call(withLoading(Fetch, 'banners'), {
-        ...payload,
-        totalpage: pageModel.totalpage,
-        presentpage: pageModel.current - 1,
-        amount: pageModel.total
+      const pageModel = yield select(({ serverManage }) => serverManage.servers.pagination);
+      const response = yield call(withLoading(Fetch, 'servers'), {
+        page_num: pageModel.current - 1,
+        page_size: pageModel.pageSize,
+        ...payload
       });
-      yield update({ audits: { list: listData.list, pagination: { ...pageModel, total: listData.tc } } });
+      yield update({ servers: { list: response.info, pagination: { ...pageModel, total: response.count } } });
     }
   },
   reducers: {}

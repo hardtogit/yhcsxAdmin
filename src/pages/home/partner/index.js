@@ -84,7 +84,7 @@ class Index extends Component {
       dataSource: partners.list,
       loading: loading.partners,
       pagination:partners.pagination,
-      onChange({ current }) {
+      onChange:({ current })=>{
         goPage('partners',current);
         fetchList({...this.searchParams,obj:'admin',act:'homepartnerlist'});
       }

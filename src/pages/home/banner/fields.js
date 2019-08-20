@@ -24,7 +24,7 @@ const tableFields = [
     key: 'fid',
     name: '缩略图',
     render:(v)=>{
-      return (<img height={40} src={`http://47.92.169.34/cgi-bin/download.pl?fid=${v}&proj=demo8`} alt=""/>);
+      return (<img height={40} src={`http://www.freshfood.cn/cgi-bin/download.pl?fid=${v}&proj=yh_ga`} alt=""/>);
     }
   },
   {

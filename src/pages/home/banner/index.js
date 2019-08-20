@@ -54,7 +54,7 @@ class Index extends Component {
           >失效</a>
           <Divider type="vertical"/>
           <a onClick={() => {
-            this.props.push(`/home/banner/edit/${JSON.stringify(row)}`);
+            this.props.push(`/home/banner/edit/${row['_id']}`);
           }}
           >修改</a>
         </>
@@ -89,7 +89,7 @@ class Index extends Component {
       dataSource: banners.list,
       loading: loading.banners,
       pagination:push.pagination,
-      onChange({ current }) {
+      onChange:({ current })=>{
         goPage('banners',current);
         fetchList({...this.searchParams, obj: 'admin',
           act: 'bannerlist',

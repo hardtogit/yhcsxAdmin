@@ -31,9 +31,9 @@ class Index extends Component {
     ;
   }
   componentDidMount(){
-    Fetch({obj:'admin',act: 'otherbannerread',type:'company'}).then((response)=>{
+    Fetch({obj:'admin',act: 'otherbannerread',type:'join'}).then((response)=>{
       this.setState({
-        banner:response.info[0]||{}
+        banner:response.info
       });
     });
   }
@@ -41,7 +41,7 @@ class Index extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        Fetch({...values,obj :'admin',act: 'otherbannermodify',type:'company'}).then(()=>{
+        Fetch({...values,obj :'admin',act: 'otherbannermodify',type:'join'}).then(()=>{
           message.success('设置成功');
         });
       }
@@ -60,13 +60,13 @@ class Index extends Component {
         >
           {
             getFieldDecorator('picture',{
-              initialValue:banner.fid,
+              initialValue:banner.picture,
               rules:[
                 {required:true,message:'图片必须上传'}
               ]
 
             })(
-              <UploadImg imgCropProps={{width:1920,height:480,modalWidth:800,useRatio:true}}/>
+              <UploadImg imgCropProps={{width:1920,height:420,modalWidth:800,useRatio:true}}/>
             )
           }
         </FormItem>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import UploadImg from '@/components/UploadImg';
-import {screenType} from '@/config/constants';
+import moment from 'moment';
 import {model} from '@/utils/portal';
 import Editor from '@/components/Editor';
-import {Form,Select,Input,Button,Col,Row,Radio,DatePicker} from 'antd';
+import {Form,Select,Input,Button,DatePicker,Col,Row,Radio} from 'antd';
 import { message } from 'antd/lib/index';
 import Fetch from '@/utils/baseSever';
 
@@ -31,22 +31,32 @@ const tailFormItemLayout = {
 };
 @model('baseModel')
 @Form.create()
-class Index extends Component {
+class Id extends Component {
   constructor(props) {
     super(props);
     this.state={
       loading:false
     };
   }
+  componentDidMount(){
+    Fetch({obj:'admin',act:'newsmanageread',id:this.props.match.params.id}).then((response)=>{
+      response.info.date=moment(response.info.date);
+      this.props.form.setFieldsValue(response.info);
+    });
+  }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         values.date=values.date.unix();
-        Fetch({...values,obj:'admin',act:'newsmanageadd'}).then(()=>{
-          message.success('新增成功');
+        Fetch({...values,obj:'admin',act:'newsmanagemodify',id:this.props.match.params.id}).then(()=>{
+          message.success('修改成功');
           this.props.pop();
         });
+        // Fetch({...values,obj:'admin',act:'newsmanageadd',id:this.props.match.params.id}).then(()=>{
+        //   message.success('修改成功');
+        //   this.props.pop();
+        // });
         console.log('Received values of form: ', values);
       }
     });
@@ -100,7 +110,6 @@ class Index extends Component {
               )
             }
           </FormItem>
-
           <FormItem
               label="封面图"
           >
@@ -192,4 +201,4 @@ class Index extends Component {
     );
   }
 }
-export default Index;
+export default Id;

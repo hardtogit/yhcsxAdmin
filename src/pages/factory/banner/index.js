@@ -66,7 +66,7 @@ class Index extends Component {
               ]
 
             })(
-              <UploadImg imgCropProps={{width:1920,height:480,modalWidth:800,useRatio:true}}/>
+              <UploadImg imgCropProps={{width:1920,height:420,modalWidth:800,useRatio:true}}/>
             )
           }
         </FormItem>

@@ -1,28 +1,25 @@
-const searchFields=[{
-  key:'name',
-  name:'标题'
-}];
 const tableFields = [
   {
-    key: '_id',
-    name: '缩略图'
+    key:'name',
+    name:'名称'
   },
   {
-    key: 'active',
-    name: '标题',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'address',
+    name: '地址'
   },
   {
-    key: 'movie',
-    name: '链接',
-    render: (v) => {
-      return v.status;
-    }
+    key: 'email',
+    name: '邮箱'
+  },
+  {
+    key: 'phone',
+    name: '电话'
+  },
+  {
+    key: 'status',
+    name: '状态'
   }
 ];
 export {
-  searchFields,
   tableFields
 };

@@ -63,6 +63,7 @@ class Id extends Component {
         >
           <FormItem
               label="图片"
+              extra="在设备类型为PC时 图片尺寸为1920*850,设备类型为手机时 图片尺寸为 960*425,小于600kb,格式为jpg"
           >
             {
               getFieldDecorator('picture',{
@@ -96,6 +97,16 @@ class Id extends Component {
               rules: [
                 { required: true, message: 'banner描述必须填写' }
               ]
+            })(
+              <Input/>
+            )}
+          </FormItem>
+          <FormItem label="排序">
+            {getFieldDecorator('sort', {
+              initialValue:banner.sort
+              // rules: [
+              //   { required: true, message: '排序必须填写' }
+              // ]
             })(
               <Input/>
             )}

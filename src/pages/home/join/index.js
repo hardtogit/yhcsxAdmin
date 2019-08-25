@@ -58,6 +58,7 @@ class Index extends Component {
           <Col span={6}>
             <FormItem
                 label="加入我们"
+                extra="图片格式为JPG，图片大小在600KB以内,尺寸为1024*395"
             >
               {
                 getFieldDecorator('join1',{
@@ -75,6 +76,7 @@ class Index extends Component {
           <Col span={6}>
             <FormItem
                 label="洽谈合作"
+                extra="图片格式为PNG（背景透明），图片大小在600KB以内,尺寸为878*210"
             >
               {
                 getFieldDecorator('join2',{

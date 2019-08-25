@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImgCrop from 'antd-img-crop';
 import {Upload,Icon} from 'antd';
+import { staticPathDown, staticPathUpload } from '@/config/default';
 
 class Index extends Component {
   static defaultProps={
@@ -11,7 +12,7 @@ class Index extends Component {
         accept:'image/jpg,image/jpeg,image/png',
       multiple:false,
       showUploadList:false,
-      action:'http://www.freshfood.cn/cgi-bin/upload.pl',
+      action:staticPathUpload,
       data:{proj:'yh_ga'},
       headers:{ 'X-Requested-With': null , withCredentials: null}
     },
@@ -64,12 +65,12 @@ class Index extends Component {
           <Upload {...uploadProps}
               onChange={this.handleChange}
           >
-            {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={`http://www.freshfood.cn/cgi-bin/download.pl?fid=${fid}&proj=yh_ga`} alt=""/>:uploadBtn}
+            {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={staticPathDown+fid} alt=""/>:uploadBtn}
           </Upload>
         </ImgCrop>:<Upload {...uploadProps}
             onChange={this.handleChange}
                    >
-          {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={`http://www.freshfood.cn/cgi-bin/download.pl?fid=${fid}&proj=yh_ga`} alt=""/>:uploadBtn}
+          {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={staticPathDown+fid} alt=""/>:uploadBtn}
         </Upload>}
 
         </>

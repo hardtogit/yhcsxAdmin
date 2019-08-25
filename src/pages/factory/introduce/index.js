@@ -79,6 +79,7 @@ class Index extends Component {
         <Col span={8}>
         <FormItem
             label="图片"
+            extra="图片格式为JPG，图片大小在600KB以内，尺寸为397*285"
             {...picFormItemLayout}
         >
           {
@@ -89,7 +90,7 @@ class Index extends Component {
               ]
 
             })(
-              <UploadImg imgCropProps={{width:390,height:280,modalWidth:800,useRatio:true}}/>
+              <UploadImg imgCropProps={{width:397,height:285,modalWidth:800,useRatio:true}}/>
             )
           }
         </FormItem>

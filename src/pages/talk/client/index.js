@@ -74,7 +74,7 @@ class Index extends Component {
               ]
 
             })(
-              <ListInfo/>
+              <ListInfo limit={10}/>
             )
           }
           </div>
@@ -85,13 +85,13 @@ class Index extends Component {
           <div className="ant-input listInfo" style={{height:'auto'}}>
             {
               getFieldDecorator('infomations',{
-                initialValue:entity.contents||[],
+                initialValue:entity.infomations||[],
                 rules:[
                   {required:true,message:'底部信息必须填写'}
                 ]
 
               })(
-                <ListInfo/>
+                <ListInfo limit={10}/>
               )
             }
           </div>

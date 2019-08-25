@@ -72,13 +72,14 @@ class Index extends Component {
                   {required:true,message:'荣誉记录必须填写'}
                 ]
               })(
-                <ListInfo/>
+                <ListInfo limit={25}/>
               )
             }
           </div>
         </FormItem>
         <FormItem
             label="图片"
+            extra="图片格式为JPG，图片大小在600KB以内,尺寸为369*408"
         >
             {
               getFieldDecorator('honor1',{

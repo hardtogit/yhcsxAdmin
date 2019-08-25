@@ -9,4 +9,5 @@ export const pageConfig = {
   },
   list: []
 };
-export const staticPath='http://114.55.168.147/cgi-bin/download.pl?proj=nw&fid=';
+export const staticPathDown='http://www.freshfood.cn/cgi-bin/download.pl?proj=yh_ga&&fid=';
+export const staticPathUpload='http://www.freshfood.cn/cgi-bin//upload.pl';

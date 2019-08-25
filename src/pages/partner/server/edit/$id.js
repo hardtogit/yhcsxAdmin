@@ -62,6 +62,7 @@ class Index extends Component {
       >
         <FormItem
             label="首页图片"
+            extra="图片格式为JPG，图片大小在600KB以内，尺寸为311*193"
         >
           {
             getFieldDecorator('hpicture',{
@@ -76,6 +77,7 @@ class Index extends Component {
         </FormItem>
         <FormItem
             label="ICON"
+            extra="图标格式为PNG（背景透明），图片大小100KB以内，尺寸为190*250"
         >
           {
             getFieldDecorator('icon',{
@@ -90,6 +92,7 @@ class Index extends Component {
         </FormItem>
         <FormItem
             label="选中ICON"
+            extra="图标格式为PNG（背景透明），图片大小100KB以内，尺寸为190*250"
         >
           {
             getFieldDecorator('selicon',{
@@ -132,6 +135,7 @@ class Index extends Component {
         </FormItem>
         <FormItem
             label="底部图片"
+            extra="底图图片格式为JPG，图片大小在600KB以内，尺寸为1105*736"
         >
           {
             getFieldDecorator('bpicture',{

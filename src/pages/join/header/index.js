@@ -62,6 +62,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="左图"
+                  extra="图片格式为JPG，图片大小在600KB以内，尺寸为598*371"
               >
                 {
                   getFieldDecorator('des1',{
@@ -71,7 +72,7 @@ class Index extends Component {
                     ]
 
                   })(
-                    <UploadImg imgCropProps={{width:596,height:369,modalWidth:800,useRatio:true}}/>
+                    <UploadImg imgCropProps={{width:598,height:371,modalWidth:800,useRatio:true}}/>
                   )
                 }
               </FormItem>
@@ -79,6 +80,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="右图"
+                  extra="图片格式为JPG，图片大小在600KB以内，尺寸为598*371"
               >
                 {
                   getFieldDecorator('des2',{
@@ -88,7 +90,7 @@ class Index extends Component {
                     ]
 
                   })(
-                    <UploadImg imgCropProps={{width:596,height:369,modalWidth:800,useRatio:true}}/>
+                    <UploadImg imgCropProps={{width:598,height:371,modalWidth:800,useRatio:true}}/>
                   )
                 }
               </FormItem>

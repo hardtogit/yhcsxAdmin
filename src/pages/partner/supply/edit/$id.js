@@ -61,6 +61,7 @@ class Index extends Component {
       >
         <FormItem
             label="图片"
+            extra="图片格式为JPG，图片大小在600KB以内，尺寸为443*332"
         >
           {
             getFieldDecorator('picture',{
@@ -69,7 +70,7 @@ class Index extends Component {
               ]
 
             })(
-              <UploadImg imgCropProps={{width:440,height:332,modalWidth:800,useRatio:true}}/>
+              <UploadImg imgCropProps={{width:443,height:332,modalWidth:800,useRatio:true}}/>
             )
           }
         </FormItem>

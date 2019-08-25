@@ -2,6 +2,7 @@ import React from 'react';
 import { message } from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { staticPathDown, staticPathUpload } from '@/config/default';
 /*
  * Custom "star" icon for the toolbar using an Octicon
  * https://octicons.github.io
@@ -39,13 +40,13 @@ function image() {
           params.append('local_file',fileInput.files[0]);
           params.append('proj','yh_ga');
 
-          fetch('http://www.freshfood.cn/cgi-bin/upload.pl', {
+          fetch(staticPathUpload, {
             method: 'POST',
             body: params
           }).then(response => response.json())
             .then((data) => {
               console.log(data);
-              const path =`http://www.freshfood.cn/cgi-bin/download.pl?fid=${data.fid}&proj=yh_ga`;
+              const path = staticPathDown+data.fid;
               // const path = data[0].url;
               // // getSelection 选择当前光标位置咯 然后在下一个range.index用它自带的embed媒介插入方式插入你已经存储在阿里上的图片了
               const range = $this.quill.getSelection(true);

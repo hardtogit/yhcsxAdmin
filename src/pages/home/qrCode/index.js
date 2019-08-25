@@ -61,6 +61,7 @@ class Index extends Component {
         >
           <FormItem
               label="二维码"
+              extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为500*500"
           >
             {
               getFieldDecorator('qr1',{

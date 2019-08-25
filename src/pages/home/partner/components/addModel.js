@@ -31,7 +31,10 @@ class Index extends Component {
     return (
       <Modal {...modalProps} >
         <Form {...formItemLayout}>
-          <Form.Item label="图片">
+          <Form.Item
+              label="图片"
+              extra="图标格式为PNG，图片大小100KB以内,尺寸为140*78"
+          >
             {getFieldDecorator('picture', {
               initialValue:entity.fid
             })(

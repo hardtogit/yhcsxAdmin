@@ -59,6 +59,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="公司概况"
+                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为100*100"
               >
                 {
                   getFieldDecorator('company1',{
@@ -76,6 +77,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="公司荣誉"
+                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为100*100"
               >
                 {
                   getFieldDecorator('company2',{
@@ -93,6 +95,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="发展历程"
+                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为100*100"
               >
                 {
                   getFieldDecorator('company3',{
@@ -110,6 +113,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="愿景使命"
+                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为100*100"
               >
                 {
                   getFieldDecorator('company4',{

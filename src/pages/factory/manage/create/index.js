@@ -71,6 +71,7 @@ class Index extends Component {
         </FormItem>
         <FormItem
             label="标题图片"
+            extra="图片格式为PNG（背景透明），图片大小在100KB以内，尺寸为785*128"
         >
           {
             getFieldDecorator('title',{
@@ -115,6 +116,7 @@ class Index extends Component {
           <Col span={12}>
             <FormItem
                 label="经度"
+                extra={<div>经纬度查询网站：<a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank">http://api.map.baidu.com/lbsapi/getpoint/index.html</a> </div>}
                 {...picFormItemLayout}
             >
               {
@@ -147,35 +149,44 @@ class Index extends Component {
             </FormItem>
           </Col>
         </Row>
-        <FormItem label="中间图">
+        <FormItem
+            label="中间图"
+            extra="图片格式为JPG，图片大小在600KB以内，尺寸为1080*493"
+        >
           {getFieldDecorator('middle', {
             rules: [
               { required: true, message: '中间图必须上传' }
             ]
           })(
-            <UploadImg  imgCropProps={{width:1200,height:490,modalWidth:800,useRatio:true}}/>
+            <UploadImg  imgCropProps={{width:1080,height:493,modalWidth:800,useRatio:true}}/>
           )}
         </FormItem>
         <Row>
           <Col span={12}>
-            <FormItem label="底图左" {...picFormItemLayout}>
+            <FormItem label="底图左"
+                extra="图片格式为JPG，图片大小在600KB以内，尺寸为528*406"
+                {...picFormItemLayout}
+            >
               {getFieldDecorator('left', {
                 rules: [
                   { required: true, message: '底图左必须上传' }
                 ]
               })(
-                <UploadImg  imgCropProps={{width:527,height:406,modalWidth:800,useRatio:true}}/>
+                <UploadImg  imgCropProps={{width:528,height:406,modalWidth:800,useRatio:true}}/>
               )}
             </FormItem>
           </Col>
           <Col span={12}>
-            <FormItem label="底图右" {...picFormItemLayout}>
+            <FormItem label="底图右"
+                extra="图片格式为JPG，图片大小在600KB以内，尺寸为528*406"
+                {...picFormItemLayout}
+            >
               {getFieldDecorator('right', {
                 rules: [
                   { required: true, message: '底图又必须上传' }
                 ]
               })(
-                <UploadImg imgCropProps={{width:527,height:406,modalWidth:800,useRatio:true}}/>
+                <UploadImg imgCropProps={{width:528,height:406,modalWidth:800,useRatio:true}}/>
               )}
             </FormItem>
           </Col>

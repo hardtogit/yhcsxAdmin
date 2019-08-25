@@ -59,6 +59,7 @@ class Index extends Component {
         >
           <FormItem
               label="背景图"
+              extra="图片格式为JPG，图片大小在600KB以内,尺寸为1920*1080"
           >
             {
               getFieldDecorator('national1',{

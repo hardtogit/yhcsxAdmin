@@ -60,6 +60,7 @@ class Index extends Component {
         >
           <FormItem
               label="标题"
+              extra="字数在32字以内"
           >
             {
               getFieldDecorator('title',{
@@ -68,7 +69,7 @@ class Index extends Component {
                 ]
 
               })(
-                <Input/>
+                <Input maxLength={32}/>
               )
             }
           </FormItem>
@@ -103,6 +104,7 @@ class Index extends Component {
 
           <FormItem
               label="封面图"
+              extra="图片格式为JPG，图片大小在600KB以内，尺寸为280*216"
           >
             {
               getFieldDecorator('picture',{
@@ -117,6 +119,7 @@ class Index extends Component {
           </FormItem>
           <FormItem
               label="首页封面图"
+              extra="图片格式为JPG，图片大小在600KB以内，尺寸为272*272"
           >
             {
               getFieldDecorator('homepicture',{
@@ -148,6 +151,7 @@ class Index extends Component {
           </FormItem>
           <FormItem
               label="简介"
+              extra="字数在70字以内"
           >
             {
               getFieldDecorator('description',{
@@ -156,7 +160,7 @@ class Index extends Component {
                 ]
 
               })(
-                <Input.TextArea autosize={{minRows: 4, maxRows: 6}}/>
+                <Input.TextArea autosize={{minRows: 4, maxRows: 6}} maxLength={70}/>
               )
             }
           </FormItem>

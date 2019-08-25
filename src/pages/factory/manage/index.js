@@ -54,21 +54,21 @@ class Index extends Component {
           >生效</a>
           <Divider type="vertical" />
           <a  onClick={()=>{this.props.push(`/factory/manage/edit/${row['_id']}`);}}>修改</a>
-          <Divider type="vertical" />
-          <a  onClick={()=>{
-            Modal.confirm({
-                title: '系统提示',
-                content: '确定生效？',
-                onOk: () => Fetch({ obj: 'admin', act: 'ftymanagedel', status: '生效', id: row['_id'] }).then(() => {
-                  this.props.fetchList({
-                    ...this.searchParams, obj: 'admin',
-                    act: 'ftymanagelist'
-                  });
-                })
-              }
-            );
-          }}
-          >删除</a>
+          {/*<Divider type="vertical" />*/}
+          {/*<a  onClick={()=>{*/}
+            {/*Modal.confirm({*/}
+                {/*title: '系统提示',*/}
+                {/*content: '确定生效？',*/}
+                {/*onOk: () => Fetch({ obj: 'admin', act: 'ftymanagedel', status: '生效', id: row['_id'] }).then(() => {*/}
+                  {/*this.props.fetchList({*/}
+                    {/*...this.searchParams, obj: 'admin',*/}
+                    {/*act: 'ftymanagelist'*/}
+                  {/*});*/}
+                {/*})*/}
+              {/*}*/}
+            {/*);*/}
+          {/*}}*/}
+          {/*>删除</a>*/}
         </>
       )
     }];
@@ -86,7 +86,7 @@ class Index extends Component {
     const searchProps={
       fields:searchFields,
       onSearch:this.handleSearch,
-      btns:[{source:'add',title:'新增'}],
+      // btns:[{source:'add',title:'新增'}],
       handler:(source)=>{
         if(source==='add'){
           push('/factory/manage/create');

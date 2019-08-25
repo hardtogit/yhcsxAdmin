@@ -58,6 +58,7 @@ class Index extends Component {
       >
         <FormItem
             label="图片"
+            extra="图标格式为PNG（背景透明），图片大小600KB以内，尺寸为1187*582"
         >
           {
             getFieldDecorator('progress1',{
@@ -67,7 +68,7 @@ class Index extends Component {
               ]
 
             })(
-              <UploadImg imgCropProps={{width:1180,height:580,modalWidth:800,useRatio:true}}/>
+              <UploadImg imgCropProps={{width:1187,height:582,modalWidth:800,useRatio:true}}/>
             )
           }
         </FormItem>

@@ -1,9 +1,12 @@
+import React from 'react';
+import { staticPathDown } from '@/config/default';
+
 const tableFields = [
   {
     key: 'picture',
     name: '缩略图',
     render:(v)=>{
-      return (<img height={40} src={`http://www.freshfood.cn/cgi-bin/download.pl?fid=${v}&proj=yh_ga`} alt=""/>);
+      return (<img height={40} src={staticPathDown+v} alt=""/>);
     }
   },
   {

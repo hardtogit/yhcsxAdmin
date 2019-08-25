@@ -55,7 +55,7 @@ class Index extends Component {
   };
   render() {
     const {entity}=this.state;
-    const { form:{getFieldDecorator},pop }=this.props;
+    const { form:{getFieldDecorator}}=this.props;
     return (
         <Form
             {...formItemLayout}
@@ -63,6 +63,7 @@ class Index extends Component {
         >
           <FormItem
               label="图片"
+              extra="图片格式为PNG（背景透明），图片大小在600KB以内，尺寸为1094*561"
           >
             {
               getFieldDecorator('picture',{
@@ -72,7 +73,7 @@ class Index extends Component {
                 ]
 
               })(
-                <UploadImg imgCropProps={{width:750,height:384,modalWidth:800,useRatio:true}}/>
+                <UploadImg imgCropProps={{width:1094,height:561,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>
@@ -108,6 +109,8 @@ class Index extends Component {
           </FormItem>
           <FormItem
               label="经度"
+              extra={<div>经纬度查询网站：<a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank">http://api.map.baidu.com/lbsapi/getpoint/index.html</a> </div>}
+
           >
             {
               getFieldDecorator('longitude',{

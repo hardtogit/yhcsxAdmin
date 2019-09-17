@@ -9,5 +9,7 @@ export const pageConfig = {
   },
   list: []
 };
-export const staticPathDown='http://www.freshfood.cn/cgi-bin/download.pl?proj=yh_ga&&fid=';
-export const staticPathUpload='http://www.freshfood.cn/cgi-bin//upload.pl';
+// export const staticPathDown='http://www.freshfood.cn/cgi-bin/download.pl?proj=yh_ga&&fid=';
+// export const staticPathUpload='http://www.freshfood.cn/cgi-bin//upload.pl';
+export const staticPathDown='http://47.92.169.34/cgi-bin/download.pl?proj=demo8&&fid=';
+export const staticPathUpload='http://47.92.169.34/cgi-bin/upload.pl';

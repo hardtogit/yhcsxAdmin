@@ -12,6 +12,12 @@ export default [
       path: '/home/banner'
       // icon: 'picture'
     },{
+      title: '视频管理',
+      key: 'homeVideo',
+      name: 'homeVideo',
+      path: '/home/video'
+      // icon: 'picture'
+    },{
       title: '公司介绍',
       key: 'homeCompany',
       name: 'homeCompany',
@@ -226,6 +232,12 @@ export default [
       path: '/join/header'
       // icon: 'profile'
     },{
+      title: '面试注意事项',
+      key: 'joinRemark',
+      name: 'joinRemark',
+      path: '/join/remark'
+    },
+      {
       title: '分公司',
       key: 'joinCompany',
       name: 'joinCompany',

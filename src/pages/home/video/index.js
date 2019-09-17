@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import UploadImg from '@/components/UploadImg';
-import {screenType} from '@/config/constants';
 import {model} from '@/utils/portal';
-import {Form,Select,Input,Button} from 'antd';
+import {Form,Select,Button,Input} from 'antd';
 import Fetch from '@/utils/baseSever';
 import { message } from 'antd/lib/index';
 
@@ -24,7 +22,7 @@ const tailFormItemLayout = {
     }
   }
 };
-@model('homeBanner')
+@model('baseModel')
 @Form.create()
 class Index extends Component {
   constructor(props) {
@@ -35,17 +33,16 @@ class Index extends Component {
     };
   }
   componentDidMount(){
-    Fetch({obj:'admin',act:'homeqrread'}).then((response)=>{
+    Fetch({obj:'admin',act:'videoread'}).then((response)=>{
       this.setState({
         entity:response.info
       });
     });
   }
   handleSubmit = e => {
-    e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        Fetch({obj:'admin',act:'homeqrmodify',...values}).then(()=>{
+        Fetch({obj:'admin',act:'videomodify',...values}).then(()=>{
           message.success('操作成功');
         });
       }
@@ -63,14 +60,14 @@ class Index extends Component {
             label="视频"
         >
           {
-            getFieldDecorator('qr1',{
-              initialValue:entity.qr1,
+            getFieldDecorator('video',{
+              initialValue:entity.video,
               rules:[
-                {required:true,message:'图片必须上传'}
+                {required:true,message:'视频文件名'}
               ]
 
             })(
-              <UploadImg imgCropProps={{width:320,height:320,modalWidth:800,useRatio:true}}/>
+              <Input/>
             )
           }
         </FormItem>
@@ -79,21 +76,21 @@ class Index extends Component {
         >
           {
             getFieldDecorator('status',{
-              initialValue:entity.status,
+              initialValue:entity.status||'失效',
               rules:[
                 {required:true,message:'状态'}
               ]
 
             })(
               <Select>
-                <Option >生效</Option>
-                <Option>失效</Option>
+                <Option value="生效" >生效</Option>
+                <Option value="失效" >失效</Option>
               </Select>
             )
           }
         </FormItem>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" onClick={this.handleSubmit} style={{marginRight:'15px'}}>
+          <Button type="primary" onClick={()=>this.handleSubmit()} style={{marginRight:'15px'}}>
             保存
           </Button>
         </Form.Item>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UploadImg from '@/components/UploadImg';
 import {model} from '@/utils/portal';
-import {Form,Select,Row,Col,Button} from 'antd';
+import {Form,Select,Row,Col,Button,Input} from 'antd';
 import Fetch from '@/utils/baseSever';
 import { message } from 'antd/lib/index';
 
@@ -76,6 +76,21 @@ class Index extends Component {
                   )
                 }
               </FormItem>
+              <FormItem
+                  label="链接"
+              >
+                {
+                  getFieldDecorator('leftUrl',{
+                    initialValue:entity.leftUrl,
+                    rules:[
+                      {required:true,message:'链接必须填写'}
+                    ]
+
+                  })(
+                    <Input />
+                  )
+                }
+              </FormItem>
             </Col>
             <Col span={6}>
               <FormItem
@@ -91,6 +106,21 @@ class Index extends Component {
 
                   })(
                     <UploadImg imgCropProps={{width:598,height:371,modalWidth:800,useRatio:true}}/>
+                  )
+                }
+              </FormItem>
+              <FormItem
+                  label="链接"
+              >
+                {
+                  getFieldDecorator('rightUrl',{
+                    initialValue:entity.rightUrl,
+                    rules:[
+                      {required:true,message:'链接必须填写'}
+                    ]
+
+                  })(
+                    <Input />
                   )
                 }
               </FormItem>

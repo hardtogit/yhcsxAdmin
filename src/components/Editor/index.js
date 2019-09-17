@@ -38,7 +38,7 @@ function image() {
         }
         let params =new FormData();
           params.append('local_file',fileInput.files[0]);
-          params.append('proj','yh_ga');
+          params.append('proj','demo8');
 
           fetch(staticPathUpload, {
             method: 'POST',

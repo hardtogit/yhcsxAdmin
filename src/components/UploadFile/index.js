@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImgCrop from 'antd-img-crop';
 import {Upload,Icon} from 'antd';
 import { staticPathDown, staticPathUpload } from '@/config/default';
 
@@ -9,7 +8,7 @@ class Index extends Component {
     uploadProps:{
       name:'local_file',
       listType:'picture-card',
-        accept:'image/jpg,image/jpeg,image/png',
+      // accept:'image/jpg,image/jpeg,image/png',
       multiple:false,
       showUploadList:false,
       action:staticPathUpload,
@@ -52,7 +51,7 @@ class Index extends Component {
   };
   render() {
     const {fid,loading}=this.state;
-    const {uploadProps,imgCropProps,crop=true}=this.props;
+    const {uploadProps=true}=this.props;
     const uploadBtn = (
       <div>
         <Icon type="plus" loading={loading}/>
@@ -60,21 +59,11 @@ class Index extends Component {
       </div>
     );
     return (
-      <>
-        {crop? <ImgCrop {...imgCropProps}>
-          <Upload {...uploadProps}
-              onChange={this.handleChange}
-          >
-            {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={staticPathDown+fid} alt=""/>:uploadBtn}
-          </Upload>
-        </ImgCrop>:<Upload {...uploadProps}
-            onChange={this.handleChange}
-                   >
-          {fid? <img style={{maxHeight:'84px',maxWidth:'84px'}} src={staticPathDown+fid} alt=""/>:uploadBtn}
-        </Upload>}
-
-        </>
-
+       <Upload {...uploadProps}
+           onChange={this.handleChange}
+       >
+          {fid? <video style={{maxHeight:'84px',maxWidth:'84px'}} src={staticPathDown+fid} alt=""/>:uploadBtn}
+        </Upload>
     );
   }
 }

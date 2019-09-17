@@ -59,7 +59,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="公司概况"
-                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为100*100"
+                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为240*320"
               >
                 {
                   getFieldDecorator('company1',{
@@ -69,7 +69,7 @@ class Index extends Component {
                     ]
 
                   })(
-                    <UploadImg imgCropProps={{width:100,height:100,useRatio:true}}/>
+                    <UploadImg imgCropProps={{width:240,height:320,useRatio:true}}/>
                   )
                 }
               </FormItem>
@@ -77,7 +77,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="公司荣誉"
-                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为100*100"
+                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为240*320"
               >
                 {
                   getFieldDecorator('company2',{
@@ -87,7 +87,7 @@ class Index extends Component {
                     ]
 
                   })(
-                    <UploadImg imgCropProps={{width:100,height:100,useRatio:true}}/>
+                    <UploadImg imgCropProps={{width:240,height:320,useRatio:true}}/>
                   )
                 }
               </FormItem>
@@ -95,7 +95,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="发展历程"
-                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为100*100"
+                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为240*320"
               >
                 {
                   getFieldDecorator('company3',{
@@ -105,7 +105,7 @@ class Index extends Component {
                     ]
 
                   })(
-                    <UploadImg imgCropProps={{width:100,height:100,useRatio:true}}/>
+                    <UploadImg imgCropProps={{width:240,height:320,useRatio:true}}/>
                   )
                 }
               </FormItem>
@@ -113,7 +113,7 @@ class Index extends Component {
             <Col span={6}>
               <FormItem
                   label="愿景使命"
-                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为100*100"
+                  extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为240*320"
               >
                 {
                   getFieldDecorator('company4',{
@@ -123,7 +123,7 @@ class Index extends Component {
                     ]
 
                   })(
-                    <UploadImg imgCropProps={{width:100,height:100,useRatio:true}}/>
+                    <UploadImg imgCropProps={{width:240,height:320,useRatio:true}}/>
                   )
                 }
               </FormItem>

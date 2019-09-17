@@ -61,7 +61,7 @@ class Index extends Component {
         >
           <FormItem
               label="二维码"
-              extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为500*500"
+              extra="图标格式为PNG（背景透明），图片大小100KB以内,尺寸为1920*1080"
           >
             {
               getFieldDecorator('qr1',{
@@ -71,7 +71,7 @@ class Index extends Component {
                 ]
 
               })(
-                <UploadImg imgCropProps={{width:320,height:320,modalWidth:800,useRatio:true}}/>
+                <UploadImg imgCropProps={{width:1920,height:1080,modalWidth:800,useRatio:true}}/>
               )
             }
           </FormItem>

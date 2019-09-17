@@ -1,7 +1,7 @@
 
 // ref: https://umijs.org/config/
 export default {
-  publicPath: '/dist/',
+  publicPath: '/demo8/dist/',
   treeShaking: true,
   define: {
     "process.env.UMI_ENV": process.env.UMI_ENV

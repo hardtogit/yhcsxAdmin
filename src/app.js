@@ -28,7 +28,7 @@ window.apiconn.response_received_handler = function(jo){
     }
   }
 };
-window.apiconn.wsUri = 'ws://www.freshfood.cn/yh_ga';
+window.apiconn.wsUri = 'ws://47.92.169.34:51708/demo8';
 window.apiconn.connect();
 export const dva = {
   config: {

@@ -13,7 +13,7 @@ class Index extends Component {
       multiple:false,
       showUploadList:false,
       action:staticPathUpload,
-      data:{proj:'demo8'},
+      data:{proj:'yh_ga'},
       headers:{ 'X-Requested-With': null , withCredentials: null}
     },
     imgCropProps:{

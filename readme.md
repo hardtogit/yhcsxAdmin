@@ -1,9 +1,7 @@
-
+项目使用react开发，基于umi构建（具体请参阅umi官方文档）。涉及dva,antd等。
 
 
 yhcsxAdmin
-├── mock
-│   └── user.js
 ├── package.json
 ├── public
 │   ├── APIConnection.min.js
@@ -14,7 +12,7 @@ yhcsxAdmin
 │   ├── assets
 │   │   ├── img
 │   │   └── js
-│   ├── components
+│   ├── components---------------------------公用组件目录
 │   │   ├── AutoComplete
 │   │   ├── Editor
 │   │   ├── HBasicLayout
@@ -24,7 +22,7 @@ yhcsxAdmin
 │   │   ├── SearchFormPro
 │   │   ├── UploadFile
 │   │   └── UploadImg
-│   ├── config
+│   ├── config-------------------------------项目配置文件
 │   │   ├── constants.js
 │   │   ├── default.js
 │   │   ├── menus.js
@@ -35,16 +33,11 @@ yhcsxAdmin
 │   │   ├── index.js
 │   │   ├── index.less
 │   │   └── model.js
-│   ├── locales
-│   │   └── en-US.js
 │   ├── models
 │   │   └── baseModel.js
-│   ├── pages
-│   │   ├── __tests__
-│   │   ├── auditDetail
-│   │   ├── auditManage
+│   ├── pages--------------------------------页面组件（根据文件名区分模块）
 │   │   ├── company
-│   │   ├── document.ejs
+│   │   ├── document.ejs---------------------入口模版文件
 │   │   ├── factory
 │   │   ├── home
 │   │   ├── index.js
@@ -54,7 +47,7 @@ yhcsxAdmin
 │   │   ├── partner
 │   │   ├── talk
 │   │   └── userManage
-│   └── utils
+│   └── utils---------------------------------工具方法
 │       ├── baseModel
 │       ├── baseSever.js
 │       ├── dva.js
